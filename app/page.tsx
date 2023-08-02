@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const Home = () => {
 	return (
 		<section className='bg-[url(https://mirato1.github.io/Lol-Page/assets/Aatrox_wall.jpg)] bg-cover bg-center bg-no-repeat '>
-			<aside className='flex min-h-[calc(100vh-40px)] w-full items-center justify-center bg-black bg-opacity-40 text-center '>
+			<aside className='flex min-h-screen w-full items-center justify-center bg-black bg-opacity-40 text-center '>
 				<AnimatedTitle />
 			</aside>
 		</section>
@@ -28,7 +28,7 @@ const AnimatedTitle = () => {
 
 	return (
 		<motion.section initial='hidden' animate='visible'>
-			<motion.h2 variants={headline} className='m-0 text-[7rem] font-semibold leading-snug text-white'>
+			<motion.h2 variants={headline} className='m-0 text-[5rem] font-semibold leading-snug text-white'>
 				Soy
 				<motion.span className='font-semibold text-red-500'> Mirato</motion.span>
 				<br />

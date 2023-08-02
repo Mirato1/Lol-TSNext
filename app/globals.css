@@ -33,7 +33,7 @@
 }
 
 .container {
-	@apply mx-auto my-0 min-h-[calc(100vh-40px)] pt-[57px] max-w-6xl  flex-col items-center px-4 py-8 lg:flex lg:w-full;
+	@apply mx-auto my-0 min-h-screen pt-[57px] max-w-6xl  flex-col items-center px-4 py-8 lg:flex lg:w-full;
 }
 
 /* END: General styles */

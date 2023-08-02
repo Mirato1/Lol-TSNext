@@ -38,19 +38,19 @@ const Navbar = () => {
 
 	return (
 		<>
-			<header className='w-full fixed z-10'>
+			<header className='fixed z-10 w-full'>
 				<motion.nav
 					initial={false}
 					animate={isOpen ? 'open' : 'closed'}
 					custom='100%'
-					className='backdrop-blur supports-backdrop-blur:bg-white/60 flex justify-between p-2 md:justify-around py-3 border-b border-slate-900/10  dark:border-slate-300/10'
+					className='flex justify-between border-b border-slate-900/10 p-2 py-3 backdrop-blur dark:border-slate-300/10  md:justify-around'
 				>
 					<h1 className='text-2xl font-semibold text-red-500 dark:text-cyan-400'>Mirato</h1>
 					<ul className='flex items-center'>
 						{headerLinks.map((link) => (
 							<li
 								key={link.url}
-								className={`hidden px-4 py-0 text-center font-bold  text-sm 
+								className={`hidden px-4 py-0 text-center text-sm  font-bold 
                 transition-colors duration-500 hover:text-red-500 dark:hover:text-cyan-300 md:list-item ${
 									path === link.url ? 'link-active' : ''
 								}`}
@@ -76,7 +76,7 @@ const Navbar = () => {
 								width: 0,
 								transition: { delay: 0, duration: 0.45 },
 							}}
-							className='fixed top-0 z-[999] flex h-screen right-0 flex-col justify-center  border-r border-r-gray-400 bg-gradient-to-br from-zinc-50 to-zinc-300 shadow-lg dark:border-r-gray-800 dark:bg-gradient-to-br dark:from-neutral-800 dark:to-zinc-900 md:hidden '
+							className='fixed right-0 top-0 z-[999] flex h-screen flex-col justify-center  border-r border-r-gray-400 bg-gradient-to-br from-zinc-50 to-zinc-300 shadow-lg dark:border-r-gray-800 dark:bg-gradient-to-br dark:from-neutral-800 dark:to-zinc-900 md:hidden '
 						>
 							<motion.div initial='closed' animate='open' exit='closed' variants={sideVariants}>
 								<motion.ul
