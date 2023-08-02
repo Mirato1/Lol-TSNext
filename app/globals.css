@@ -1,27 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Manrope', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* START: General styles */
+.max-width {
+	@apply max-w-[1440px] mx-auto;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.padding-x {
+	@apply sm:px-16 px-6;
+}
+
+.padding-y {
+	@apply py-4;
+}
+
+.flex-center {
+	@apply flex items-center justify-center;
+}
+
+.flex-between {
+	@apply flex justify-between items-center;
+}
+
+.container {
+	@apply mx-auto my-0 min-h-[calc(100vh-40px)] pt-[57px] max-w-6xl  flex-col items-center px-4 py-8 lg:flex lg:w-full;
+}
+
+/* END: General styles */
+
+/* Navbar */
+.navbar {
+	@apply py-5 px-8 border-b  gap-4;
+}
+
+.link-active {
+	@apply text-red-500 !important;
+}
+
+.dark .link-active {
+	@apply text-cyan-300 !important;
 }
