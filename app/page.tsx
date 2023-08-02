@@ -1,9 +1,9 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 
 const Home = () => {
 	return (
-		<section className='bg-[url(https://mirato1.github.io/Lol-Page/assets/Aatrox_wall.jpg)] bg-cover bg-center bg-no-repeat '>
+		<section className=' bg-[url(https://mirato1.github.io/Lol-Page/assets/Aatrox_wall.jpg)] bg-cover bg-center bg-no-repeat transition-all duration-300 dark:bg-[url(https://pbs.twimg.com/media/FwQiVByacAIxhVa?format=jpg&name=4096x4096)] '>
 			<aside className='flex min-h-screen w-full items-center justify-center bg-black bg-opacity-40 text-center '>
 				<AnimatedTitle />
 			</aside>
@@ -12,28 +12,59 @@ const Home = () => {
 };
 
 const AnimatedTitle = () => {
-	const headline = {
-		hidden: { opacity: 0, y: -25 },
+	const titleControls = useAnimation();
+
+	const titleVariants = {
+		hidden: { opacity: 0, y: -50 },
 		visible: {
 			opacity: 1,
 			y: 0,
 			transition: {
-				delay: 0.15,
 				type: 'spring',
-				damping: 100,
-				mass: 4,
+				damping: 5, // Reduce this value for slower animation
+				stiffness: 50, // Reduce this value for slower animation
+				mass: 0.8,
 			},
 		},
 	};
 
+	const textVariants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: {
+				type: 'spring',
+				damping: 8, // Reduce this value for slower animation
+				stiffness: 40, // Reduce this value for slower animation
+				mass: 0.6,
+				delay: 0.3,
+			},
+		},
+	};
+
+	const startAnimation = async () => {
+		await titleControls.start('visible');
+	};
+
 	return (
-		<motion.section initial='hidden' animate='visible'>
-			<motion.h2 variants={headline} className='m-0 text-[5rem] font-semibold leading-snug text-white'>
-				Soy
-				<motion.span className='font-semibold text-red-500'> Mirato</motion.span>
+		<motion.section initial='hidden' animate='visible' onAnimationStart={startAnimation}>
+			<motion.h2
+				variants={titleVariants}
+				initial='hidden'
+				animate={titleControls}
+				className='m-0 text-[4rem] font-semibold leading-snug text-white md:text-[5rem]'
+			>
+				Soy{' '}
+				<motion.span variants={textVariants} className='font-semibold text-red-500 dark:text-cyan-400'>
+					Mirato
+				</motion.span>
 				<br />
 				y te enseño
-				<br />a jugar <motion.b className='font-semibold text-red-500'>Top</motion.b>
+				<br />a jugar{' '}
+				<motion.span variants={textVariants} className='font-semibold text-red-500 dark:text-cyan-400'>
+					Top
+				</motion.span>
 			</motion.h2>
 		</motion.section>
 	);
