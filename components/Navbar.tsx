@@ -38,12 +38,12 @@ const Navbar = () => {
 
 	return (
 		<>
-			<header className='fixed z-10 w-full'>
+			<header className='fixed z-10  w-full border-b border-slate-900/10 backdrop-blur dark:border-slate-300/10 '>
 				<motion.nav
 					initial={false}
 					animate={isOpen ? 'open' : 'closed'}
 					custom='100%'
-					className='flex justify-between border-b border-slate-900/10 p-2 py-3 backdrop-blur dark:border-slate-300/10  md:justify-around'
+					className='mx-auto flex max-w-6xl justify-between px-4 py-3'
 				>
 					<h1 className='text-2xl font-semibold text-red-500 dark:text-cyan-400'>Mirato</h1>
 					<ul className='flex items-center'>
@@ -76,7 +76,7 @@ const Navbar = () => {
 								width: 0,
 								transition: { delay: 0, duration: 0.45 },
 							}}
-							className='fixed right-0 top-0 z-[999] flex h-screen flex-col justify-center  border-r border-r-gray-400 bg-gradient-to-br from-zinc-50 to-zinc-300 shadow-lg dark:border-r-gray-800 dark:bg-gradient-to-br dark:from-neutral-800 dark:to-zinc-900 md:hidden '
+							className='fixed right-0 top-0 z-[999] flex h-screen flex-col justify-center  border-r border-r-zinc-400 bg-gradient-to-br from-zinc-50 to-zinc-300 shadow-lg dark:border-r-zinc-800 dark:bg-gradient-to-br dark:from-slate-800/80 dark:to-slate-900 md:hidden '
 						>
 							<motion.div initial='closed' animate='open' exit='closed' variants={sideVariants}>
 								<motion.ul
@@ -91,8 +91,8 @@ const Navbar = () => {
 											key={link.url}
 											whileHover={{ scale: 1.1 }}
 											variants={itemVariants}
-											className={`list-item p-0 text-center text-3xl font-bold text-red-500 transition-colors duration-500 hover:text-gray-700 dark:hover:text-gray-50 ${
-												path === link.url ? 'active' : ''
+											className={`list-item p-0 text-center text-3xl font-bold  transition-colors duration-500 hover:text-red-500 dark:hover:text-cyan-300 ${
+												path === link.url ? 'link-active' : ''
 											}`}
 										>
 											<Link className='whitespace-nowrap' onClick={() => toggleOpen()} href={link.url}>

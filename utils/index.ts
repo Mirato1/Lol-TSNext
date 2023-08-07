@@ -1,3 +1,5 @@
+import { FetchOptions, FetchResponse } from '@/types';
+
 export const updateSearchParams = (type: string, value: string) => {
 	// Get the current URL search params
 	const searchParams = new URLSearchParams(window.location.search);
@@ -9,4 +11,57 @@ export const updateSearchParams = (type: string, value: string) => {
 	const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
 
 	return newPathname;
+};
+
+export const OPTIONS = (
+	method = 'GET',
+	body = null,
+	headers = { 'Content-type': 'application/json; charset=utf-8' },
+) => {
+	return {
+		method,
+		headers,
+		body,
+	};
+};
+
+export const handleData = async ({ url, data = null, filter = null }: FetchOptions): Promise<FetchResponse> => {
+	try {
+		const response = await fetch(url, {
+			method: 'get',
+			headers: { 'Content-type': 'application/json; charset=utf-8' },
+		});
+
+		const x = await response.json();
+
+		if (x?.IsError) {
+			throw x.ResponseMessage;
+		} else {
+			if (x.ResponseMessage?.includes('No se encontró')) {
+				return { IsError: false, ResponseMessage: 'No se encontró', Data: [] };
+			} else {
+				const { ResponseData, ...all } = x;
+
+				let responseData: string | Array<any> = ResponseData;
+
+				if (data && ResponseData) {
+					responseData = ResponseData[data];
+					if (filter && Array.isArray(responseData)) {
+						responseData = responseData.filter((el) => el[filter]);
+					}
+				}
+
+				return {
+					IsError: false,
+					ResponseMessage: '',
+					Data: all,
+				};
+			}
+		}
+	} catch (err) {
+		return {
+			IsError: true,
+			ResponseMessage: err as string,
+		};
+	}
 };

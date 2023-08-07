@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 
 const Home = () => {
 	return (
-		<section className=' bg-[url(https://mirato1.github.io/Lol-Page/assets/Aatrox_wall.jpg)] bg-cover bg-center bg-no-repeat transition-all duration-300 dark:bg-[url(https://pbs.twimg.com/media/FwQiVByacAIxhVa?format=jpg&name=4096x4096)] '>
+		<section className='bg-img'>
 			<aside className='flex min-h-screen w-full items-center justify-center bg-black bg-opacity-40 text-center '>
 				<AnimatedTitle />
 			</aside>

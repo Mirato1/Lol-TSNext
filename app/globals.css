@@ -13,11 +13,11 @@
 
 /* START: General styles */
 .max-width {
-	@apply max-w-[1440px] mx-auto;
+	@apply mx-auto max-w-[1440px];
 }
 
 .padding-x {
-	@apply sm:px-16 px-6;
+	@apply px-6 sm:px-16;
 }
 
 .padding-y {
@@ -29,18 +29,37 @@
 }
 
 .flex-between {
-	@apply flex justify-between items-center;
+	@apply flex items-center justify-between;
 }
 
 .container {
-	@apply mx-auto my-0 min-h-screen pt-[57px] max-w-6xl  flex-col items-center px-4 py-8 lg:flex lg:w-full;
+	@apply mx-auto my-0 min-h-screen max-w-6xl flex-col items-center px-0 py-8 pt-[57px] lg:flex lg:w-full lg:px-0;
 }
 
 /* END: General styles */
 
+/* Background Image */
+.bg-img {
+	@apply bg-[url(https://mirato1.github.io/Lol-Page/assets/Aatrox_wall.jpg)] bg-cover bg-center bg-no-repeat transition-all duration-300 dark:bg-[url(https://pbs.twimg.com/media/FwQiVByacAIxhVa?format=jpg&name=4096x4096)];
+}
+
+.gradient-bg {
+	background-position: 50% 0px;
+	background-image: radial-gradient(46% 100% at 55% 44%, rgba(7, 7, 32, 0) 66%, rgb(244 244 245) 100%),
+		linear-gradient(90deg, rgb(244 244 245), rgba(7, 7, 32, 0)),
+		linear-gradient(359deg, rgb(244 244 245) 0%, rgba(7, 7, 32, 0));
+}
+
+.dark .gradient-bg {
+	background-position: 50% 0px;
+	background-image: radial-gradient(44% 87% at 54% 34%, rgba(7, 7, 32, 0) 35%, rgb(15 23 42) 100%),
+		linear-gradient(90deg, rgb(15 23 42), rgba(7, 7, 32, 0)),
+		linear-gradient(1deg, rgb(15 23 42) 10%, rgba(7, 7, 32, 0));
+}
+
 /* Navbar */
 .navbar {
-	@apply py-5 px-8 border-b  gap-4;
+	@apply gap-4 border-b px-8  py-5;
 }
 
 .link-active {
@@ -49,4 +68,14 @@
 
 .dark .link-active {
 	@apply text-cyan-300 !important;
+}
+
+/* * Profile Page */
+.profile__container {
+	@apply flex w-full flex-col items-center gap-3;
+}
+
+/* Button */
+.custom-btn {
+	@apply relative flex flex-row items-center justify-center rounded-md border border-red-600 bg-red-800 p-2 text-xs font-medium uppercase text-zinc-50 outline-none transition-colors duration-150 ease-in-out hover:border-red-800 hover:bg-red-700 dark:border-cyan-300 dark:bg-cyan-800 dark:hover:border-cyan-400 dark:hover:bg-cyan-600 md:h-8  md:text-base;
 }
