@@ -45,7 +45,7 @@
 
 .gradient-bg {
 	background-position: 50% 0px;
-	background-image: radial-gradient(46% 100% at 55% 44%, rgba(7, 7, 32, 0) 66%, rgb(244 244 245) 100%),
+	background-image: radial-gradient(36% 74% at 52% 40%, rgba(7, 7, 32, 0) 66%, rgb(244 244 245) 100%),
 		linear-gradient(90deg, rgb(244 244 245), rgba(7, 7, 32, 0)),
 		linear-gradient(359deg, rgb(244 244 245) 0%, rgba(7, 7, 32, 0));
 }

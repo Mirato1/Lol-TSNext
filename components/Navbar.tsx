@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCycle, motion, AnimatePresence, SVGMotionProps } from 'framer-motion';
 import { headerLinks } from '@/constants';
-import { Ref, useEffect, useState } from 'react';
-import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
+import { Ref } from 'react';
+import { ButtonTheme } from '.';
 
 const itemVariants = {
 	open: {
@@ -58,7 +58,7 @@ const Navbar = () => {
 								<Link href={link.url}>{link.title}</Link>
 							</li>
 						))}
-						<Button />
+						<ButtonTheme />
 						<Hamburguer toggle={() => toggleOpen()} />
 					</ul>
 				</motion.nav>
@@ -111,36 +111,6 @@ const Navbar = () => {
 				)}
 			</AnimatePresence>
 		</>
-	);
-};
-
-const Button = () => {
-	const [darkMode, setDarkMode] = useState<string | null>(() => {
-		const savedMode = localStorage.getItem('darkMode');
-		if (savedMode) {
-			return savedMode === 'dark' || savedMode === 'light' ? savedMode : 'light';
-		}
-		return null;
-	});
-
-	const toggleDarkMode = () => {
-		const newMode = darkMode === 'light' ? 'dark' : 'light';
-		setDarkMode(newMode);
-		localStorage.setItem('darkMode', newMode);
-	};
-
-	useEffect(() => {
-		document.documentElement.classList.toggle('dark', darkMode === 'dark');
-	}, [darkMode]);
-
-	return (
-		<button onClick={toggleDarkMode} className='px-4 py-0'>
-			{darkMode === 'dark' ? (
-				<BsFillSunFill className='cursor-pointer fill-red-400 text-lg transition-all duration-500 hover:fill-red-500' />
-			) : (
-				<BsFillMoonStarsFill className='cursor-pointer fill-cyan-600 text-lg transition-all duration-500 hover:fill-cyan-400' />
-			)}
-		</button>
 	);
 };
 
