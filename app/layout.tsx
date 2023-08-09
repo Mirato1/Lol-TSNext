@@ -1,6 +1,10 @@
-import { Footer, Navbar } from '@/components';
+import { Footer, Navbar, ThemeProviders } from '@/components';
 import './globals.css';
 import type { Metadata } from 'next';
+// import dynamic from 'next/dynamic';
+// const ThemeProviders = dynamic(() => import('@/components').then((mod) => mod.ThemeProviders), {
+// 	ssr: false,
+// });
 
 export const metadata: Metadata = {
 	title: 'MiraTOP Page',
@@ -9,11 +13,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang='en'>
-			<body className='relative bg-zinc-100 text-slate-500 dark:bg-slate-900 dark:text-slate-300'>
-				<Navbar />
-				{children}
-				<Footer />
+		<html suppressHydrationWarning>
+			<body>
+				<ThemeProviders>
+					<Navbar />
+					{children}
+					<Footer />
+				</ThemeProviders>
 			</body>
 		</html>
 	);
