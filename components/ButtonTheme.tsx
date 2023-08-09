@@ -9,11 +9,9 @@ const ButtonTheme = () => {
 
 	useEffect(() => setMounted(true), []);
 	if (!mounted) {
-		const currentTheme = theme === 'system' ? systemTheme : theme;
-		console.log('🚀 ~ ButtonTheme ~ currentTheme:', currentTheme);
 		return (
 			<li className='px-4 py-0'>
-				<BsFillMoonStarsFill className='cursor-pointer fill-cyan-600 text-lg transition-all duration-500 hover:fill-cyan-400' />
+				<BsFillMoonStarsFill className='fill-gray-400 text-lg' />
 			</li>
 		);
 	}
