@@ -45,7 +45,7 @@ const Navbar = () => {
 					custom='100%'
 					className='mx-auto flex max-w-6xl justify-between px-4 py-3'
 				>
-					<h1 className='text-2xl font-semibold text-red-500 dark:text-cyan-400'>Mirato</h1>
+					<h1 className='text-2xl font-semibold text-red-500 dark:text-cyan-400'>MIRATOP</h1>
 					<ul className='flex items-center'>
 						{headerLinks.map((link) => (
 							<li

@@ -1,19 +1,18 @@
 import { seasonElo } from '@/constants';
-import { ApiResponse, SummonerData, UserData } from '@/types';
 import { handleData } from '@/utils';
-import { GetServerSideProps } from 'next';
 import CustomButton from '../CustomButton';
+import { SummonerData } from '@/types';
 
-const fetchUser = async (): Promise<UserData> => {
+const fetchUser = async (): Promise<SummonerData> => {
 	const url = `https://la2.api.riotgames.com/lol/summoner/v4/summoners/${process.env.SUMMONER}?api_key=${process.env.API_KEY}`;
 
-	const { IsError, Data, ResponseMessage } = await handleData({ url });
+	const { IsError, Data } = await handleData({ url });
 
 	if (IsError) {
 		throw new Error('Error obteniendo los datos del usuario');
 	}
 
-	return Data as UserData;
+	return Data as SummonerData;
 };
 
 export async function User() {
@@ -21,7 +20,18 @@ export async function User() {
 
 	return (
 		<>
-			<div className='h-24 w-full rounded-lg px-3 py-2 md:h-36 md:py-[18px] '>
+			<div className='absolute top-0  h-96 w-full'>
+				<div className='relative h-full w-full'>
+					<div
+						className='bg-img sticky h-full w-full'
+						style={{
+							backgroundPosition: '50% -50px',
+						}}
+					/>
+					<div className='gradient-bg absolute top-0 h-full w-full' />
+				</div>
+			</div>
+			<div className='h-24 w-full rounded-lg px-3 py-2 md:h-36 md:py-[18px] z-[1] '>
 				<div className='flex h-full w-full gap-5 self-center '>
 					<div className='flex min-w-[5rem] flex-col items-center justify-center self-center md:block md:min-w-[6rem] '>
 						<img
@@ -53,24 +63,13 @@ export async function User() {
 						<h2 className='text-base font-semibold md:text-2xl'>{name || 'Mirato'}</h2>
 
 						<CustomButton
-							title='Recargar'
+							title='Actualizar'
 							textStyles='text-zinc-50 text-[10px] md:text-[14px] leading-[17px] font-bold'
 							containerStyles='self-start'
 							// rightIcon='/right-arrow.svg'
 							// handleClick={() => setIsOpen(true)}
 						/>
 					</div>
-				</div>
-			</div>
-			<div className='absolute top-0 z-[-1] h-96 w-full'>
-				<div className='relative h-full w-full'>
-					<div
-						className='bg-img sticky h-full w-full'
-						style={{
-							backgroundPosition: '50% -50px',
-						}}
-					/>
-					<div className='gradient-bg absolute top-0 h-full w-full' />
 				</div>
 			</div>
 		</>

@@ -1,10 +1,6 @@
 import { Footer, Navbar, ThemeProviders } from '@/components';
 import './globals.css';
 import type { Metadata } from 'next';
-// import dynamic from 'next/dynamic';
-// const ThemeProviders = dynamic(() => import('@/components').then((mod) => mod.ThemeProviders), {
-// 	ssr: false,
-// });
 
 export const metadata: Metadata = {
 	title: 'MiraTOP Page',

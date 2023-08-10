@@ -63,7 +63,7 @@ const AnimatedTitle = () => {
 				y te enseño
 				<br />a jugar{' '}
 				<motion.span variants={textVariants} className='font-semibold text-red-500 dark:text-cyan-400'>
-					Top
+					TOP
 				</motion.span>
 			</motion.h2>
 		</motion.section>

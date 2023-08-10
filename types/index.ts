@@ -16,26 +16,32 @@ export interface SummonerData {
 	summonerLevel: number;
 }
 
+export interface RankData {
+  leagueId: string;
+  queueType: string;
+  tier: string;
+  rank: string;
+  summonerId: string;
+  summonerName: string;
+  leaguePoints: number;
+  wins: number;
+  losses: number;
+  veteran: boolean;
+  inactive: boolean;
+  freshBlood: boolean;
+  hotStreak: boolean;
+}
+
 export type FetchOptions = {
 	url: string;
 	data?: string | null;
 	filter?: string | null;
 };
 
-export interface UserData {
-	id: string;
-	accountId: string;
-	puuid: string;
-	name: string;
-	profileIconId: number;
-	revisionDate: number;
-	summonerLevel: number;
-}
-
 export type FetchResponse = {
 	IsError: boolean;
 	ResponseMessage: string;
-	Data?: UserData | Array<any>;
+	Data?: SummonerData | Array<any>;
 };
 
 export interface CustomButtonProps {
