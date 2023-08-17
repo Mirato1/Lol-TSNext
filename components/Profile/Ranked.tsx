@@ -2,7 +2,7 @@ import { RankData } from '@/types';
 import { handleData } from '@/utils';
 
 const fetchRanked = async (): Promise<RankData[]> => {
-	const url = `https://${process.env.SV_1}/lol/league/v4/entries/by-summoner/${process.env.SUMMONER_BR}?api_key=${process.env.API_KEY_LIMITED}`;
+	const url = `https://${process.env.SV_1}/lol/league/v4/entries/by-summoner/${process.env.SUMMONER}?api_key=${process.env.API_KEY}`;
 	const { IsError, Data } = await handleData({ url });
 
 	if (IsError) {

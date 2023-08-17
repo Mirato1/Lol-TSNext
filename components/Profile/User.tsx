@@ -4,7 +4,7 @@ import { SummonerData } from '@/types';
 import { CustomButton } from '..';
 
 const fetchUser = async (): Promise<SummonerData> => {
-	const url = `https://${process.env.SV_1}/lol/summoner/v4/summoners/${process.env.SUMMONER_BR}?api_key=${process.env.API_KEY_LIMITED}`;
+	const url = `https://${process.env.SV_1}/lol/summoner/v4/summoners/${process.env.SUMMONER}?api_key=${process.env.API_KEY}`;
 	const { IsError, Data } = await handleData({ url });
 	if (IsError) {
 		throw new Error('Error obteniendo los datos del usuario');
