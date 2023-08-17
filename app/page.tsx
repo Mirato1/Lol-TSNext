@@ -70,10 +70,4 @@ const AnimatedTitle = () => {
 	);
 };
 
-export async function getStaticProps() {
-	return {
-		props: {}, // You can optionally pass props here
-	};
-}
-
 export default Home;
