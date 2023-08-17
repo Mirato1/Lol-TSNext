@@ -33,7 +33,6 @@ export const handleData = async ({ url, data = null, filter = null }: FetchOptio
 		});
 
 		const x = await response.json();
-
 		if (x?.IsError) {
 			throw x.ResponseMessage;
 		} else {

@@ -1,4 +1,4 @@
-import { Footer, Navbar, ThemeProviders } from '@/components';
+import { ClientProvider, Footer, Navbar, ThemeProviders } from '@/components';
 import './globals.css';
 import type { Metadata } from 'next';
 
@@ -12,9 +12,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html suppressHydrationWarning>
 			<body>
 				<ThemeProviders>
-					<Navbar />
-					{children}
-					<Footer />
+					<ClientProvider>
+						<Navbar />
+						{children}
+						<Footer />
+					</ClientProvider>
 				</ThemeProviders>
 			</body>
 		</html>

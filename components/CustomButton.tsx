@@ -18,7 +18,7 @@ const CustomButton = ({
 			type={btnType ?? 'button'}
 			className={`custom-btn ${containerStyles}`}
 			onClick={handleClick}
-			whileTap={{ scale: 0.95 }}
+			whileTap={{ scale: 0.97 }}
 			transition={{ type: 'spring', stiffness: 300, damping: 30 }}
 		>
 			<span className={` flex-1 ${textStyles} `}>{title}</span>
