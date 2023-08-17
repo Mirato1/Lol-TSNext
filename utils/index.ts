@@ -30,6 +30,7 @@ export const handleData = async ({ url, data = null, filter = null }: FetchOptio
 		const response = await fetch(url, {
 			method: 'get',
 			headers: { 'Content-type': 'application/json; charset=utf-8' },
+			cache: 'no-store',
 		});
 
 		const x = await response.json();
