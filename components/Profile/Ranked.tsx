@@ -17,7 +17,7 @@ export async function Ranked() {
 	const arr = Object.values(data);
 
 	return (
-		<div className='flex w-full md:w-4/12 md:flex-col gap-3 h-full max-w-sm md:max-w-xs self-center md:self-auto z-[1]'>
+		<div className='flex w-full md:w-4/12 md:flex-col gap-3 h-full max-w-sm md:max-w-xs self-center md:self-auto'>
 			{[...Array(Math.max(2, arr ? arr.length : 0))].map((_, i) =>
 				!arr || arr.length === 0 || i >= arr.length ? (
 					<div
@@ -44,22 +44,18 @@ const RankCard = ({ data }: { data: RankData }) => (
 		</div>
 
 		<div className='flex flex-col items-center gap-2 md:flex-row md:items-center '>
-			<div className='rounded-full bg-zinc-300 dark:bg-slate-500 dark:bg-opacity-30 md:max-w-[65px] lg:md:max-w-[85px] '>
+			<div className='max-w-[85px] rounded-full bg-zinc-300 dark:bg-slate-500 dark:bg-opacity-30 md:max-w-[65px] lg:md:max-w-[85px] '>
 				<img
 					style={{ objectPosition: '0px 5px' }}
 					src={
-						data.tier === 'GRANDMASTER'
-							? '/grandmaster.webp'
-							: data.tier === 'CHALLENGER'
-							? '/challenger.webp'
-							: '/diamond.webp'
+						`${data.tier.toLowerCase()}.webp`
 					}
 				/>
 			</div>
 
 			<div className='flex w-full flex-col items-center md:items-start md:flex-1 '>
 				<p
-					className={`text-[.6rem] font-semibold md:text-xs lg:text-sm  ${
+					className={`text-sm font-semibold lg:text-base  ${
 						data.tier === 'GRANDMASTER'
 							? 'text-red-500'
 							: data.tier === 'CHALLENGER'
@@ -69,7 +65,7 @@ const RankCard = ({ data }: { data: RankData }) => (
 				>
 					{data.tier || 'CHALLENGER'} {data.tier !== 'GRANDMASTER' && data.tier !== 'CHALLENGER' && data.rank}
 				</p>
-				<p className=' text-xs font-medium text-cyan-500 dark:text-yellow-400 md:text-xs lg:text-sm '>
+				<p className=' text-xs font-medium text-cyan-500 dark:text-yellow-400 md:text-xs'>
 					{data.leaguePoints || 0}LP
 				</p>
 			</div>
@@ -77,7 +73,7 @@ const RankCard = ({ data }: { data: RankData }) => (
 			<div className='flex min-w-fit flex-col items-center md:items-end md:flex-1'>
 				<div className='flex flex-col items-center'>
 					<p className='text-xs text-slate-600 dark:text-zinc-100 md:text-xs lg:text-sm'>
-						<b>WR</b> {((data.wins / (data.losses + data.wins)) * 100).toFixed(0)} %
+						WR {((data.wins / (data.losses + data.wins)) * 100).toFixed(0)}%
 					</p>
 					<div className='flex gap-2'>
 						<p className='text-xs font-medium text-green-600 md:text-xs lg:text-sm '>{data.wins}V</p>

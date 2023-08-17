@@ -38,7 +38,7 @@ export async function User() {
 							alt='Icono'
 						/>
 						<div className='-mt-3 h-5 text-center'>
-							<span className='inline-block rounded-xl   bg-red-900 px-2 py-0 text-[0.5rem] text-zinc-50  dark:bg-slate-700 md:text-xs '>
+							<span className='inline-block rounded-xl   bg-red-700 px-2 py-0 text-[0.5rem] text-zinc-50  dark:bg-cyan-600 md:text-xs '>
 								{summonerLevel || '999'}
 							</span>
 						</div>
@@ -49,7 +49,7 @@ export async function User() {
 								.map((el) => (
 									<div key={el.season}>
 										<div className='h-auto text-center'>
-											<span className='flex gap-1 rounded-md bg-red-900 px-1 py-[0.5px] text-[0.5rem] font-medium text-zinc-50 dark:bg-slate-700  md:px-2 md:text-xs md:font-semibold '>
+											<span className='flex gap-1 rounded-md bg-red-700 px-1 py-[0.5px] text-[0.5rem] font-medium text-zinc-50 dark:bg-cyan-600  md:px-2 md:text-xs md:font-semibold '>
 												<p>S{el.season}</p>
 												<p>{el.elo}</p>
 											</span>

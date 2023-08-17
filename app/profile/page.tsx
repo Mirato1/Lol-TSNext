@@ -1,13 +1,13 @@
-import { Ranked, User } from '@/components';
+import { Ranked, User, History } from '@/components';
 
 const Profile = () => {
 	return (
 		<main className='container'>
 			<article className='profile__container relative mt-4'>
 				<User />
-				<div className='flex flex-col md:flex-row w-full gap-4 px-3'>
+				<div className='flex flex-col md:flex-row w-full gap-4 px-3 z-[1]'>
 					<Ranked />
-					<LoaderHistory />
+					<History />
 				</div>
 			</article>
 		</main>
