@@ -6,6 +6,18 @@ import User from './Profile/User';
 import ThemeProviders from './providers/ThemeProvider';
 import ClientProvider from './providers/ClientProvider';
 import CustomButton from './CustomButton';
-import {History} from './Profile/History';
+import { History } from './Profile/History';
+import MatchHistory from './Profile/MatchHistory';
 
-export { Footer, Navbar, User, ButtonTheme, ThemeProviders, Ranked, ClientProvider, CustomButton, History };
+export {
+	Footer,
+	Navbar,
+	User,
+	ButtonTheme,
+	ThemeProviders,
+	Ranked,
+	ClientProvider,
+	CustomButton,
+	History,
+	MatchHistory,
+};
