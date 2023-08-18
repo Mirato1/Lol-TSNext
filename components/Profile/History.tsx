@@ -22,7 +22,7 @@ async function fetchMatchesData() {
 				const match = await fetchJSON(
 					`https://americas.api.riotgames.com/lol/match/v5/matches/${result}?api_key=${process.env.API_KEY}`,
 				);
-				const user = match.info?.participants.find((x: { summonerName: string }) => x.summonerName === 'TwTV Mirato');
+				const user = match.info?.participants.find((x: { summonerName: string }) => x.summonerName === 'Mirato');
 
 				if (user) {
 					let summoners = [];
@@ -48,7 +48,6 @@ async function fetchMatchesData() {
 
 					match.info.user = user;
 				}
-
 				return match;
 			}),
 		);
@@ -72,9 +71,7 @@ export async function History() {
 
 	return (
 		<div className='flex flex-col gap-2 flex-1 w-full md:w-8/12'>
-			{history?.map((el) => {
-				return <MatchHistory key={el.metadata.matchId} game={el} />;
-			})}
+			{history?.map((el) => <MatchHistory key={el.metadata.matchId} info={el.info} />)}
 		</div>
 	);
 }

@@ -1,192 +1,37 @@
 'use client';
 import { items } from '@/constants';
-import { Match, Rune } from '@/types';
 import { Disclosure, Transition } from '@headlessui/react';
 import React from 'react';
 import { BsArrowDown } from 'react-icons/bs';
 import moment from 'moment';
 import 'moment/locale/es';
+import { Match, MatchHistoryProps, Rune } from '@/types';
 moment.locale('es');
 
-const MatchHistory: React.FC = ({ game }) => {
+const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 	return (
 		<Disclosure>
 			{({ open }) => (
 				<div>
 					<div
 						className={`w-full rounded-md border-l-[6px] ${
-							game.info?.user?.win
+							info?.user?.win
 								? 'border-blue-600 bg-blue-200 dark:bg-blue-500'
 								: 'border-red-600 bg-red-200  dark:bg-red-500'
 						} flex gap-1 dark:bg-opacity-30 h-24 `}
 					>
 						<div className='flex p-[6px] flex-auto'>
-							<div className='flex h-full max-w-[4rem] flex-col justify-evenly lg:max-w-[7rem]  '>
-								<p className='text-[0.5rem] font-semibold text-gray-800 dark:text-gray-400  md:text-[.65rem] lg:text-xs'>
-									Ranked Solo
-								</p>
-								{/* <Tooltip text={moment.unix(game.info.gameEndTimestamp / 1000).format('ddd DD MMM YYYY hh:mm')}> */}
-								<p className='text-[0.5rem] text-gray-800 dark:text-gray-400 md:text-[.65rem] lg:text-xs '>
-									{moment(game.info.gameEndTimestamp).fromNow()}
-								</p>
-								{/* </Tooltip> */}
-
-								<hr
-									className={`mx-0 my-[2px] h-[0.5px] w-12 ${
-										game.info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '
-									} `}
-								/>
-								<div>
-									<p
-										className={`text-[0.5rem] font-semibold md:text-[.65rem] lg:text-xs ${
-											game.info?.user?.win ? 'text-blue-500' : 'text-red-500'
-										}`}
-									>
-										{game.info?.user?.win ? 'Victoria' : 'Derrota'}
-									</p>
-									<p className='text-[0.5rem] text-gray-800 dark:text-gray-400 md:text-[.65rem] lg:text-xs'>
-										{Math.floor(game.info.gameDuration / 60) +
-											':' +
-											('0' + Math.round(game.info.gameDuration % 60)).slice(-2)}
-									</p>
-								</div>
-							</div>
-							<div className='flex gap-2'>
-								<div className='flex shrink-0 flex-col justify-around'>
-									<div className='flex items-center justify-around'>
-										<div className='relative'>
-											<img
-												alt=''
-												className='lg:w-13 w-8 rounded-full object-cover md:w-12 '
-												src={`${process.env.API_URL}${process.env.API_PATCH}/img/champion/${game.info.user.championName}.png`}
-											/>
-											<span className='absolute bottom-0 right-0 rounded-full bg-slate-800 px-1 py-[2px] text-xs text-gray-100 '>
-												{game.info.user.champLevel}{' '}
-											</span>
-										</div>
-
-										<div className='flex flex-col gap-1'>
-											{game.info.user.summoners.map((r: string) => (
-												<div key={r}>
-													<img
-														alt=''
-														className='w-3 rounded-md object-cover md:w-5 '
-														src={`${process.env.API_URL}${process.env.API_PATCH}/img/spell/${r}.png`}
-													/>
-												</div>
-											))}
-										</div>
-
-										<div className='flex flex-col gap-1'>
-											{game.info.user.runes.map((r: Rune, index: number) => {
-												if (index === 0) {
-													return (
-														<div className='w-3 rounded-full bg-zinc-800 md:w-5' key={r.id}>
-															<img alt='' className='w-full object-cover' src={`${process.env.RUNE_URL}${r.icon}`} />
-														</div>
-													);
-												}
-												return (
-													<img
-														alt=''
-														key={r.id}
-														className='w-3 object-cover md:w-5'
-														src={`${process.env.RUNE_URL}${r.icon}`}
-													/>
-												);
-											})}
-										</div>
-
-										<div className='ml-1 md:min-w-[70px]'>
-											<p className='text-xs font-semibold md:text-base'>
-												{game.info.user.kills}{' '}
-												<span className='font-extralight text-gray-800 dark:text-gray-400'>/</span>{' '}
-												<span className='text-red-600'>{game.info.user.deaths}</span>{' '}
-												<span className='font-extralight text-gray-800 dark:text-gray-400'>/</span>{' '}
-												{game.info.user.assists}
-											</p>
-											<p className='text-[.6rem] font-light text-gray-800 dark:text-gray-400 md:text-xs'>
-												{game.info.user.deaths === 0
-													? 'Perfect KDA'
-													: `${game.info.user.challenges.kda.toFixed(2)}:1KDA`}
-											</p>
-										</div>
-									</div>
-
-									<div className='flex gap-[2px] '>
-										{items.map((r) => {
-											return (
-												<div key={r}>
-													{game.info.user[r] !== 0 ? (
-														<img
-															alt=''
-															className='w-3 rounded-md object-cover md:w-5 lg:w-6'
-															src={`${process.env.API_URL}${process.env.API_PATCH}/img/item/${game.info.user[r]}.png`}
-														/>
-													) : (
-														<div
-															className={`h-full w-3 rounded-md md:w-5 lg:w-6 ${
-																game.info?.user?.win
-																	? ' bg-blue-400 dark:bg-blue-500/50 '
-																	: ' bg-red-400 dark:bg-red-500/50 '
-															}`}
-														/>
-													)}
-												</div>
-											);
-										})}
-									</div>
-								</div>
-
-								<div
-									className={`border-l-2 ${
-										game.info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '
-									} flex flex-col justify-around pl-1 `}
-								>
-									<div>
-										{/* <Tooltip text='Contribución a las kills'> */}
-										<p className='text-[0.4rem] font-semibold text-red-600 md:text-[.6rem] lg:text-xs'>
-											P/Kill {(game.info.user.challenges.killParticipation * 100).toFixed(0)}%
-										</p>
-										{/* </Tooltip> */}
-										<p className='text-[0.5rem] text-gray-800 dark:text-gray-400 md:text-[.6rem] lg:text-xs'>
-											Control Ward {game.info.user.challenges.controlWardsPlaced}
-										</p>
-										{/* <Tooltip text='Minions por minuto'> */}
-										<p className='text-[0.4rem] text-gray-800 dark:text-gray-400 md:text-[.6rem] lg:text-xs'>
-											CS {game.info.user.totalMinionsKilled + game.info.user.neutralMinionsKilled} (
-											{(
-												(game.info.user.totalMinionsKilled + game.info.user.neutralMinionsKilled) /
-												(Math.floor(game.info.gameDuration / 60) + (game.info.gameDuration % 60) / 100)
-											).toFixed(1)}
-											)
-										</p>
-										{/* </Tooltip> */}
-									</div>
-									<div className='h-3 md:h-5 lg:h-6'>
-										{(game.info.user.doubleKills > 0 ||
-											game.info.user.tripleKills > 0 ||
-											game.info.user.quadraKills > 0 ||
-											game.info.user.pentaKills > 0) && (
-											<div className='flex h-full items-center justify-center rounded-3xl bg-red-500 bg-opacity-80 object-cover px-1 py-[1px] text-[0.5rem] font-semibold text-gray-100 md:px-2 md:py-[2px] md:text-[.7rem] '>
-												{(game.info.user.doubleKills > 0 && 'Double Kill') ||
-													(game.info.user.tripleKills > 0 && 'Triple Kill') ||
-													(game.info.user.quadraKills > 0 && 'Quadra Kill') ||
-													(game.info.user.pentaKills > 0 && 'Penta Kill')}
-											</div>
-										)}
-									</div>
-								</div>
-							</div>
+							<Info info={info} />
+							<ChampInfo info={info} />
 							<div className='ml-1 flex lg:ml-5 lg:gap-4'>
-								<GameParticipants data={game.info.participants.slice(0, 5)} />
-								<GameParticipants data={game.info.participants.slice(5)} />
+								<GameParticipants data={info.participants.slice(0, 5)} />
+								<GameParticipants data={info.participants.slice(5)} />
 							</div>
 						</div>
 						<Disclosure.Button>
 							<div
 								className={`flex items-end justify-center w-10 rounded-r-md rounded-br-md pb-2 cursor-pointer h-full ${
-									game.info?.user?.win
+									info?.user?.win
 										? 'bg-blue-300/50 dark:bg-blue-700/50 hover:bg-blue-400/50 dark:hover:bg-blue-600/50 text-blue-500 dark:text-blue-400 '
 										: 'bg-red-300/50 dark:bg-red-700/50 hover:bg-red-400/50 dark:hover:bg-red-600/50 text-red-500 dark:text-red-400'
 								}`}
@@ -253,5 +98,144 @@ const GameParticipants = ({ data }: GameParticipantsProps) => {
 		</div>
 	);
 };
+
+const Info = ({ info }: any) => (
+	<div className='flex h-full max-w-[4rem] flex-col justify-evenly lg:max-w-[7rem]  '>
+		<p className='text-[0.5rem] font-semibold text-gray-800 dark:text-gray-400  md:text-[.65rem] lg:text-xs'>
+			Ranked Solo
+		</p>
+		<p className='text-[0.5rem] text-gray-800 dark:text-gray-400 md:text-[.65rem] lg:text-xs '>
+			{moment(info.gameEndTimestamp).fromNow()}
+		</p>
+
+		<hr className={`mx-0 my-[2px] h-[0.5px] w-12 ${info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '} `} />
+		<div>
+			<p
+				className={`text-[0.5rem] font-semibold md:text-[.65rem] lg:text-xs ${
+					info?.user?.win ? 'text-blue-500' : 'text-red-500'
+				}`}
+			>
+				{info?.user?.win ? 'Victoria' : 'Derrota'}
+			</p>
+			<p className='text-[0.5rem] text-gray-800 dark:text-gray-400 md:text-[.65rem] lg:text-xs'>
+				{Math.floor(info.gameDuration / 60) + ':' + ('0' + Math.round(info.gameDuration % 60)).slice(-2)}
+			</p>
+		</div>
+	</div>
+);
+
+const ChampInfo = ({ info }: any) => (
+	<div className='flex gap-2'>
+		<div className='flex shrink-0 flex-col justify-around'>
+			<div className='flex items-center justify-around'>
+				<div className='relative'>
+					<img
+						alt=''
+						className='lg:w-13 w-8 rounded-full object-cover md:w-12 '
+						src={`${process.env.API_URL}${process.env.API_PATCH}/img/champion/${info.user.championName}.png`}
+					/>
+					<span className='absolute bottom-0 right-0 rounded-full bg-slate-800 px-1 py-[2px] text-xs text-gray-100 '>
+						{info.user.champLevel}{' '}
+					</span>
+				</div>
+
+				<div className='flex flex-col gap-1'>
+					{info.user.summoners.map((r: string) => (
+						<div key={r}>
+							<img
+								alt=''
+								className='w-3 rounded-md object-cover md:w-5 '
+								src={`${process.env.API_URL}${process.env.API_PATCH}/img/spell/${r}.png`}
+							/>
+						</div>
+					))}
+				</div>
+
+				<div className='flex flex-col gap-1'>
+					{info.user.runes.map((r: Rune, index: number) => {
+						if (index === 0) {
+							return (
+								<div className='w-3 rounded-full bg-zinc-800 md:w-5' key={r.id}>
+									<img alt='' className='w-full object-cover' src={`${process.env.RUNE_URL}${r.icon}`} />
+								</div>
+							);
+						}
+						return (
+							<img alt='' key={r.id} className='w-3 object-cover md:w-5' src={`${process.env.RUNE_URL}${r.icon}`} />
+						);
+					})}
+				</div>
+
+				<div className='ml-1 md:min-w-[70px]'>
+					<p className='text-xs font-semibold md:text-base'>
+						{info.user.kills} <span className='font-extralight text-gray-800 dark:text-gray-400'>/</span>{' '}
+						<span className='text-red-600'>{info.user.deaths}</span>{' '}
+						<span className='font-extralight text-gray-800 dark:text-gray-400'>/</span> {info.user.assists}
+					</p>
+					<p className='text-[.6rem] font-light text-gray-800 dark:text-gray-400 md:text-xs'>
+						{info.user.deaths === 0 ? 'Perfect KDA' : `${info.user.challenges.kda.toFixed(2)}:1KDA`}
+					</p>
+				</div>
+			</div>
+
+			<div className='flex gap-[2px] '>
+				{items.map((r) => {
+					return (
+						<div key={r}>
+							{info.user[r] !== 0 ? (
+								<img
+									alt=''
+									className='w-3 rounded-md object-cover md:w-5 lg:w-6'
+									src={`${process.env.API_URL}${process.env.API_PATCH}/img/item/${info.user[r]}.png`}
+								/>
+							) : (
+								<div
+									className={`h-full w-3 rounded-md md:w-5 lg:w-6 ${
+										info?.user?.win ? ' bg-blue-400 dark:bg-blue-500/50 ' : ' bg-red-400 dark:bg-red-500/50 '
+									}`}
+								/>
+							)}
+						</div>
+					);
+				})}
+			</div>
+		</div>
+		<div
+			className={`border-l-2 ${
+				info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '
+			} flex flex-col justify-around pl-1 `}
+		>
+			<div>
+				<p className='text-[0.4rem] font-semibold text-red-600 md:text-[.6rem] lg:text-xs'>
+					P/Kill {(info.user.challenges.killParticipation * 100).toFixed(0)}%
+				</p>
+				<p className='text-[0.5rem] text-gray-800 dark:text-gray-400 md:text-[.6rem] lg:text-xs'>
+					Control Ward {info.user.challenges.controlWardsPlaced}
+				</p>
+				<p className='text-[0.4rem] text-gray-800 dark:text-gray-400 md:text-[.6rem] lg:text-xs'>
+					CS {info.user.totalMinionsKilled + info.user.neutralMinionsKilled} (
+					{(
+						(info.user.totalMinionsKilled + info.user.neutralMinionsKilled) /
+						(Math.floor(info.gameDuration / 60) + (info.gameDuration % 60) / 100)
+					).toFixed(1)}
+					)
+				</p>
+			</div>
+			<div className='h-3 md:h-5 lg:h-6'>
+				{(info.user.doubleKills > 0 ||
+					info.user.tripleKills > 0 ||
+					info.user.quadraKills > 0 ||
+					info.user.pentaKills > 0) && (
+					<div className='flex h-full items-center justify-center rounded-3xl bg-red-500 bg-opacity-80 object-cover px-1 py-[1px] text-[0.5rem] font-semibold text-gray-100 md:px-2 md:py-[2px] md:text-[.7rem] '>
+						{(info.user.doubleKills > 0 && 'Double Kill') ||
+							(info.user.tripleKills > 0 && 'Triple Kill') ||
+							(info.user.quadraKills > 0 && 'Quadra Kill') ||
+							(info.user.pentaKills > 0 && 'Penta Kill')}
+					</div>
+				)}
+			</div>
+		</div>
+	</div>
+);
 
 export default MatchHistory;
