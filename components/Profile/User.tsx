@@ -2,6 +2,7 @@ import { seasonElo } from '@/constants';
 import { handleData } from '@/utils';
 import { SummonerData } from '@/types';
 import { CustomButton } from '..';
+import Image from 'next/image';
 
 const fetchUser = async (): Promise<SummonerData> => {
 	const url = `https://${process.env.SV_1}/lol/summoner/v4/summoners/${process.env.SUMMONER}?api_key=${process.env.API_KEY}`;
@@ -18,32 +19,35 @@ export async function User() {
 
 	return (
 		<>
-			<div className='absolute top-0  h-96 w-full'>
-				<div className='relative h-full w-full'>
+			<div className='absolute top-0 w-full h-96'>
+				<div className='relative w-full h-full'>
 					<div
-						className='bg-img sticky h-full w-full'
+						className='sticky w-full h-full bg-img'
 						style={{
 							backgroundPosition: '50% -50px',
 						}}
 					/>
-					<div className='gradient-bg absolute top-0 h-full w-full' />
+					<div className='absolute top-0 w-full h-full gradient-bg' />
 				</div>
 			</div>
 			<div className='h-24 w-full rounded-lg px-3 py-2 md:h-36 md:py-[18px] z-[1] '>
-				<div className='flex h-full w-full gap-5 self-center '>
-					<div className='flex min-w-[5rem] flex-col items-center justify-center self-center md:block md:min-w-[6rem] '>
-						<img
+				<div className='flex self-center w-full h-full gap-5 '>
+					<div className='flex min-w-[5rem] flex-col items-center justify-center self-center md:block md:min-w-[6rem] relative h-[5rem] w-20 md:h-24 md:w-24 object-contain'>
+						<Image
 							src={`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/img/profileicon/${profileIconId}.png`}
-							className='h-[5rem] w-[5rem] rounded-xl shadow shadow-red-600 dark:shadow-cyan-600 md:h-24 md:w-24 '
-							alt='Icono'
+							alt='profile-icon'
+							priority
+							sizes='100vw'
+							fill
+							className='object-contain w-full h-auto shadow rounded-xl shadow-red-600 dark:shadow-cyan-600 '
 						/>
-						<div className='-mt-3 h-5 text-center'>
-							<span className='inline-block rounded-xl   bg-red-700 px-2 py-0 text-[0.5rem] text-zinc-50  dark:bg-cyan-600 md:text-xs '>
+						<div className='absolute w-full h-4 mx-auto my-0 -mt-3 text-center -bottom-1'>
+							<span className='inline-block rounded-xl bg-red-700 px-2 py-0 text-[0.5rem] text-zinc-50  dark:bg-cyan-600 md:text-xs'>
 								{summonerLevel || '999'}
 							</span>
 						</div>
 					</div>
-					<div className='flex w-full flex-col justify-between gap-1'>
+					<div className='flex flex-col justify-between w-full gap-1'>
 						<div className='flex flex-wrap gap-1 md:gap-2 '>
 							{seasonElo
 								.map((el) => (

@@ -1,9 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCycle, motion, AnimatePresence, SVGMotionProps } from 'framer-motion';
+import { useCycle, motion, AnimatePresence } from 'framer-motion';
 import { headerLinks } from '@/constants';
-import { Ref } from 'react';
 import { ButtonTheme } from '.';
 
 const itemVariants = {
@@ -38,12 +37,12 @@ const Navbar = () => {
 
 	return (
 		<>
-			<header className='fixed z-10  w-full border-b border-slate-900/10 backdrop-blur dark:border-slate-300/10 '>
+			<header className='fixed z-10 w-full border-b border-slate-900/10 backdrop-blur dark:border-slate-300/10 '>
 				<motion.nav
 					initial={false}
 					animate={isOpen ? 'open' : 'closed'}
 					custom='100%'
-					className='mx-auto flex max-w-6xl justify-between px-4 py-3'
+					className='flex justify-between max-w-6xl px-4 py-3 mx-auto'
 				>
 					<h1 className='text-2xl font-semibold text-red-500 dark:text-cyan-400'>MIRATOP</h1>
 					<ul className='flex items-center'>
@@ -104,7 +103,7 @@ const Navbar = () => {
 							</motion.div>
 						</motion.aside>
 						<div
-							className=' fixed top-0 z-20 h-screen w-screen bg-gray-300 bg-opacity-50 dark:bg-zinc-900 dark:bg-opacity-70 md:hidden '
+							className='fixed top-0 z-20 w-screen h-screen bg-gray-300 bg-opacity-50 dark:bg-zinc-900 dark:bg-opacity-70 md:hidden'
 							onClick={() => toggleOpen()}
 						/>
 					</>
@@ -114,33 +113,31 @@ const Navbar = () => {
 	);
 };
 
-const Path = (
-	props: React.SVGProps<SVGPathElement> & SVGMotionProps<SVGPathElement> & { ref?: Ref<SVGPathElement> | null },
-) => (
-	<motion.path
-		fill='transparent'
-		strokeWidth='3'
-		className='stroke-zinc-900 dark:stroke-slate-100'
-		strokeLinecap='round'
-		{...props}
-	/>
-);
-
 interface HamburguerProps {
 	toggle: () => void; // Cambiar el tipo de toggle a una función que no recibe parámetros y no retorna nada
 }
 
 const Hamburguer = ({ toggle }: HamburguerProps) => {
+	const path = usePathname();
+
 	return (
 		<button onClick={toggle} className='px-4 py-0 md:hidden'>
 			<svg width='23' height='23' viewBox='0 0 23 23'>
-				<Path
+				<motion.path
+					fill='transparent'
+					strokeWidth='3'
+					className={`stroke-zinc-900 dark:stroke-slate-100 ${path === '/' ? 'stroke-slate-100' : ''}`}
+					strokeLinecap='round'
 					variants={{
 						closed: { d: 'M 2 2.5 L 20 2.5' },
 						open: { d: 'M 3 16.5 L 17 2.5' },
 					}}
 				/>
-				<Path
+				<motion.path
+					fill='transparent'
+					strokeWidth='3'
+					className={`stroke-zinc-900 dark:stroke-slate-100 ${path === '/' ? 'stroke-slate-100' : ''}`}
+					strokeLinecap='round'
 					d='M 2 9.423 L 20 9.423'
 					variants={{
 						closed: { opacity: 1 },
@@ -148,7 +145,11 @@ const Hamburguer = ({ toggle }: HamburguerProps) => {
 					}}
 					transition={{ duration: 0.1 }}
 				/>
-				<Path
+				<motion.path
+					fill='transparent'
+					strokeWidth='3'
+					strokeLinecap='round'
+					className={`stroke-zinc-900 dark:stroke-slate-100 ${path === '/' ? 'stroke-slate-100' : ''}`}
 					variants={{
 						closed: { d: 'M 2 16.346 L 20 16.346' },
 						open: { d: 'M 3 2.5 L 17 16.346' },

@@ -4,7 +4,7 @@ const nextConfig = {
 		ignoreBuildErrors: true,
 	},
 	images: {
-		domains: ['ddragon.leagueoflegends.com'],
+		domains: ['ddragon.leagueoflegends.com', 'ddragon.canisback.com', 'opgg-static.akamaized.net'],
 	},
 };
 

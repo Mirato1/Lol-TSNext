@@ -57,6 +57,7 @@ export interface CustomButtonProps {
 export interface Rune {
 	id: string;
 	icon: string;
+	shortDesc?: string;
 	// Other properties
 }
 

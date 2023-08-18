@@ -3,7 +3,7 @@ import { Ranked, User, History } from '@/components';
 const Profile = () => {
 	return (
 		<main className='container'>
-			<article className='profile__container relative mt-4'>
+			<article className='relative mt-4 profile__container'>
 				<User />
 				<div className='flex flex-col md:flex-row w-full gap-4 px-3 z-[1]'>
 					<Ranked />
@@ -17,7 +17,7 @@ const Profile = () => {
 const LoaderHistory = () => {
 	const numbersArray = Array.from({ length: 20 }, (_, index) => index);
 	return (
-		<div className='flex flex-col gap-2 flex-1 w-full md:w-8/12'>
+		<div className='flex flex-col flex-1 w-full gap-2 md:w-8/12'>
 			{numbersArray.map((el) => (
 				<div
 					key={el}

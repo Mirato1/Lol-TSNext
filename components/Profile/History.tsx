@@ -24,7 +24,9 @@ async function fetchMatchesData() {
 				const match = await fetchJSON(
 					`https://americas.api.riotgames.com/lol/match/v5/matches/${result}?api_key=${process.env.API_KEY}`,
 				);
-				const user = match.info?.participants.find((x: { summonerName: string }) => x.summonerName === 'Mirato');
+				const user = match.info?.participants.find(
+					(x: { summonerName: string }) => x.summonerName === 'Mirato' || x.summonerName === 'TwTV Mirato',
+				);
 
 				if (user) {
 					let summoners = [];
@@ -32,22 +34,27 @@ async function fetchMatchesData() {
 					summoners.push(spells?.find((x) => x.id === user?.summoner2Id)?.name);
 					user.summoners = summoners;
 					let runesArr: { id: any; slots: { runes: any[] }[] }[] = [];
-					runes.forEach((rune: { id: any; slots: { runes: any[] }[] }) => {
-						const primaryStyle = user.perks.styles.find(
-							(r: { description: string; style: any }) => r.description === 'primaryStyle' && r.style === rune.id,
-						);
-						if (primaryStyle) {
-							runesArr.push(rune.slots[0].runes.find((z: { id: any }) => z.id === primaryStyle.selections[0].perk));
+
+					user.perks.styles.forEach((style: any) => {
+						if (style.description === 'primaryStyle') {
+							const primaryRuneId = style.selections[0].perk;
+							const rune = runes.find((rune: any) => rune.id === style.style);
+
+							if (rune) {
+								const primaryRune = rune.slots[0].runes.find((rune: any) => rune.id === primaryRuneId);
+								if (primaryRune) {
+									runesArr.push(primaryRune);
+								}
+							}
+						} else if (style.description === 'subStyle') {
+							const rune = runes.find((rune: any) => rune.id === style.style);
+							if (rune) {
+								runesArr.push(rune);
+							}
 						}
-						const subStyle = user.perks.styles.find(
-							(r: { description: string; style: any }) => r.description === 'subStyle' && r.style === rune.id,
-						);
-						if (subStyle) {
-							runesArr.push(rune);
-						}
-						user.runes = runesArr;
 					});
 
+					user.runes = runesArr;
 					match.info.user = user;
 				}
 				return match;
@@ -72,8 +79,10 @@ export async function History() {
 	}
 
 	return (
-		<div className='flex flex-col gap-2 flex-1 w-full md:w-8/12'>
-			{history?.map((el) => <MatchHistory key={el.metadata.matchId} info={el.info} />)}
+		<div className='flex flex-col flex-1 w-full gap-2 md:w-8/12'>
+			{history?.map((el) => (
+				<MatchHistory key={el.metadata?.matchId} info={el.info} />
+			))}
 		</div>
 	);
 }

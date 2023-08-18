@@ -12,7 +12,7 @@ const ButtonTheme: React.FC = () => {
 	if (!mounted) {
 		return (
 			<li className='px-4 py-0'>
-				<BsFillMoonStarsFill className='dark:text-red-400 text-cyan-600 text-lg' />
+				<BsFillMoonStarsFill className='text-lg dark:text-red-400 text-cyan-600' />
 			</li>
 		);
 	}

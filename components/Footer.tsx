@@ -10,11 +10,11 @@ const Footer = () => {
 	return (
 		<footer
 			className={`flex justify-center py-2 gap-2 w-full mx-auto items-center ${
-				path === '/' ? 'fixed bottom-0 z-10' : 'static'
+				path === '/' ? 'fixed bottom-0 z-10 text-zinc-100' : 'static'
 			}`}
 		>
 			<a
-				className='text-red-600 dark:text-cyan-400 font-bold'
+				className='font-bold text-red-600 dark:text-cyan-400'
 				href='https://clips.twitch.tv/SmokyPoisedGooseDxAbomb-lZ99mx0sGMLWptYq?ab_channel=mantarraya'
 				rel='noreferrer'
 				target='_blank'

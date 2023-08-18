@@ -4,7 +4,7 @@ import { motion, useAnimation } from 'framer-motion';
 const Home = () => {
 	return (
 		<section className='bg-img'>
-			<aside className='flex min-h-screen w-full items-center justify-center bg-black bg-opacity-40 text-center '>
+			<aside className='flex items-center justify-center w-full min-h-screen text-center bg-black bg-opacity-40 '>
 				<AnimatedTitle />
 			</aside>
 		</section>
