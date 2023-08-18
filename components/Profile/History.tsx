@@ -8,7 +8,9 @@ async function fetchJSON(url: RequestInfo | URL) {
 
 async function fetchMatchesData() {
 	try {
-		const runes = await fetchJSON(`${process.env.API_URL}${process.env.API_PATCH}/data/es_ES/runesReforged.json`);
+		const runes = await fetchJSON(
+			`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/data/es_ES/runesReforged.json`,
+		);
 		const gamesId = await fetchJSON(
 			`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${process.env.PUUID}/ids?queue=420&start=0&count=10&api_key=${process.env.API_KEY}`,
 		);

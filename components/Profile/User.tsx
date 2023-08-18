@@ -33,7 +33,7 @@ export async function User() {
 				<div className='flex h-full w-full gap-5 self-center '>
 					<div className='flex min-w-[5rem] flex-col items-center justify-center self-center md:block md:min-w-[6rem] '>
 						<img
-							src={`${process.env.API_URL}${process.env.API_PATCH}/img/profileicon/${profileIconId}.png`}
+							src={`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/img/profileicon/${profileIconId}.png`}
 							className='h-[5rem] w-[5rem] rounded-xl shadow shadow-red-600 dark:shadow-cyan-600 md:h-24 md:w-24 '
 							alt='Icono'
 						/>

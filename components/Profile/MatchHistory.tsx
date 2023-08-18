@@ -80,13 +80,13 @@ const GameParticipants = ({ data }: GameParticipantsProps) => {
 				<div key={el.summonerName} className='flex gap-1'>
 					<img
 						alt=''
-						className={`w-[17px] object-cover ${el.summonerName === 'TwTV Mirato' && 'rounded-full'} `}
-						src={`${process.env.API_URL}${process.env.API_PATCH}/img/champion/${el.championName}.png`}
+						className={`w-[17px] object-cover ${el.summonerName === 'Mirato' && 'rounded-full'} `}
+						src={`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/img/champion/${el.championName}.png`}
 					/>
 					<span
 						title={el.summonerName}
 						className={`overflow-hidden text-ellipsis whitespace-nowrap text-[0.6rem] lg:text-[0.7rem] ${
-							el.summonerName === 'TwTV Mirato'
+							el.summonerName === 'Mirato'
 								? 'font-semibold text-gray-900 dark:text-gray-100'
 								: 'font-medium text-gray-700 dark:text-gray-400'
 						}`}
@@ -132,7 +132,7 @@ const ChampInfo = ({ info }: any) => (
 					<img
 						alt=''
 						className='lg:w-13 w-8 rounded-full object-cover md:w-12 '
-						src={`${process.env.API_URL}${process.env.API_PATCH}/img/champion/${info.user.championName}.png`}
+						src={`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/img/champion/${info.user.championName}.png`}
 					/>
 					<span className='absolute bottom-0 right-0 rounded-full bg-slate-800 px-1 py-[2px] text-xs text-gray-100 '>
 						{info.user.champLevel}{' '}
@@ -145,7 +145,7 @@ const ChampInfo = ({ info }: any) => (
 							<img
 								alt=''
 								className='w-3 rounded-md object-cover md:w-5 '
-								src={`${process.env.API_URL}${process.env.API_PATCH}/img/spell/${r}.png`}
+								src={`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/img/spell/${r}.png`}
 							/>
 						</div>
 					))}
@@ -156,12 +156,17 @@ const ChampInfo = ({ info }: any) => (
 						if (index === 0) {
 							return (
 								<div className='w-3 rounded-full bg-zinc-800 md:w-5' key={r.id}>
-									<img alt='' className='w-full object-cover' src={`${process.env.RUNE_URL}${r.icon}`} />
+									<img alt='' className='w-full object-cover' src={`${process.env.NEXT_PUBLIC_RUNE_URL}${r.icon}`} />
 								</div>
 							);
 						}
 						return (
-							<img alt='' key={r.id} className='w-3 object-cover md:w-5' src={`${process.env.RUNE_URL}${r.icon}`} />
+							<img
+								alt=''
+								key={r.id}
+								className='w-3 object-cover md:w-5'
+								src={`${process.env.NEXT_PUBLIC_RUNE_URL}${r.icon}`}
+							/>
 						);
 					})}
 				</div>
@@ -186,7 +191,7 @@ const ChampInfo = ({ info }: any) => (
 								<img
 									alt=''
 									className='w-3 rounded-md object-cover md:w-5 lg:w-6'
-									src={`${process.env.API_URL}${process.env.API_PATCH}/img/item/${info.user[r]}.png`}
+									src={`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/img/item/${info.user[r]}.png`}
 								/>
 							) : (
 								<div
