@@ -24,7 +24,7 @@ const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 						<div className='flex p-[6px] gap-1 w-[92%]' style={{ flex: 1 }}>
 							<Info info={info} />
 							<ChampInfo info={info} />
-							<div className='sm:flex w-[32%] gap-1 ml-1 lg:ml-5 lg:gap-4 hidden'>
+							<div className='sm:flex w-[32%] ml-1 lg:ml-5 hidden'>
 								<GameParticipants data={info.participants.slice(0, 5)} />
 								<GameParticipants data={info.participants.slice(5)} />
 							</div>
@@ -91,16 +91,19 @@ const GameParticipants = ({ data }: GameParticipantsProps) => {
 							} `}
 						/>
 					</div>
-					<span
+					<a
 						title={el.summonerName}
 						className={`overflow-hidden text-ellipsis whitespace-nowrap text-[0.6rem] lg:text-[0.7rem] truncate ${
 							el.summonerName === 'Mirato' || el.summonerName === 'TwTV Mirato'
 								? 'font-semibold opacity-100'
 								: 'font-medium opacity-80'
 						}`}
+						href={`https://www.op.gg/summoners/br/${el.summonerName}`}
+						target='_blank'
+						rel='noreferrer'
 					>
 						{el.summonerName}
-					</span>
+					</a>
 				</div>
 			))}
 		</div>
@@ -108,22 +111,18 @@ const GameParticipants = ({ data }: GameParticipantsProps) => {
 };
 
 const Info = ({ info }: any) => (
-	<div className='flex h-full max-w-[60px] flex-col justify-evenly lg:max-w-[7rem]'>
-		<p className='text-[.45rem] sm:text-[.55rem] font-semibold lg:text-xs'>Ranked Solo</p>
-		<p className='text-[.45rem] sm:text-[.55rem] lg:text-xs '>{moment(info.gameEndTimestamp).fromNow()}</p>
+	<div className='flex h-full max-w-[58px] flex-col justify-evenly lg:max-w-[5.5rem] w-full '>
+		<p className='text-[.55rem] font-semibold lg:text-xs'>Ranked Solo</p>
+		<p className='text-[.55rem] lg:text-[.65rem] '>{moment(info.gameEndTimestamp).fromNow()}</p>
 
 		<hr
 			className={`mx-0 my-[2px] h-[0.5px] w-auto ${info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '} `}
 		/>
 		<div>
-			<p
-				className={`text-[.45rem] sm:text-[.55rem] font-semibold lg:text-xs ${
-					info?.user?.win ? 'text-blue-500' : 'text-red-500'
-				}`}
-			>
+			<p className={`text-[.55rem] font-semibold lg:text-xs ${info?.user?.win ? 'text-blue-500' : 'text-red-500'}`}>
 				{info?.user?.win ? 'Victoria' : 'Derrota'}
 			</p>
-			<p className='text-[.45rem] sm:text-[.55rem] lg:text-xs'>
+			<p className='text-[.55rem] lg:text-xs'>
 				{Math.floor(info.gameDuration / 60) + ':' + ('0' + Math.round(info.gameDuration % 60)).slice(-2)}
 			</p>
 		</div>
@@ -131,7 +130,7 @@ const Info = ({ info }: any) => (
 );
 
 const ChampInfo = ({ info }: any) => (
-	<div className='flex gap-1 lg:gap-2'>
+	<div className='flex justify-center w-full gap-1 sm:w-auto sm:justify-normal lg:gap-2'>
 		<div className='flex flex-col justify-around '>
 			<div className='flex items-center gap-1'>
 				<div className='relative object-cover w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12'>
@@ -185,12 +184,12 @@ const ChampInfo = ({ info }: any) => (
 				</div>
 
 				<div className=' w-[50px] sm:w-[65px] ml-1'>
-					<p className='text-[.65rem] sm:text-[.85rem] font-semibold '>
+					<p className='text-[.85rem] lg:text-sm font-semibold '>
 						{info.user.kills} <span className=' font-extralight'>/</span>
 						<span className='text-red-600'>{info.user.deaths}</span>
 						<span className=' font-extralight'>/</span> {info.user.assists}
 					</p>
-					<p className='text-[.55rem] sm:text-[.65rem] font-light'>
+					<p className='text-[.65rem] lg:text-xs font-light'>
 						{info.user.deaths === 0 ? 'Perfect KDA' : `${info.user.challenges.kda.toFixed(2)}:1KDA`}
 					</p>
 				</div>

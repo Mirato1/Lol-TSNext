@@ -45,11 +45,11 @@ const RankCard = ({ data }: { data: RankData }) => (
 		</div>
 
 		<div className='flex flex-col items-center gap-2 md:flex-row md:items-center '>
-			<div className='relative w-20 h-20 rounded-full bg-zinc-300 dark:bg-slate-500 dark:bg-opacity-30 md:w-16 md:h-16 lg:w-20 lg:h-20 '>
+			<div className='relative flex-shrink-0 w-20 h-20 rounded-full bg-zinc-300 dark:bg-slate-500 dark:bg-opacity-30 md:w-16 md:h-16 lg:w-20 lg:h-20'>
 				<Image src={`/${data?.tier?.toLowerCase()}.webp`} alt='tier-icon' priority sizes='100vw' fill />
 			</div>
 
-			<div className='flex flex-col items-center w-full md:items-start md:flex-1 '>
+			<div className='flex flex-col items-center w-full md:items-start '>
 				<p
 					className={`text-sm font-semibold lg:text-base  ${
 						data.tier === 'GRANDMASTER'
@@ -64,7 +64,7 @@ const RankCard = ({ data }: { data: RankData }) => (
 				<p className='text-xs font-medium text-cyan-500 dark:text-yellow-400 md:text-xs'>{data.leaguePoints || 0}LP</p>
 			</div>
 
-			<div className='flex flex-col items-center min-w-fit md:items-end md:flex-1'>
+			<div className='flex flex-col items-center md:items-end md:min-w-[55px]'>
 				<div className='flex flex-col items-center'>
 					<p className='text-xs text-slate-600 dark:text-zinc-100 md:text-xs lg:text-sm'>
 						WR {((data.wins / (data.losses + data.wins)) * 100).toFixed(0)}%
