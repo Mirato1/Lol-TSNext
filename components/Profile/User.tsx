@@ -3,6 +3,7 @@ import { handleData } from '@/utils';
 import { SummonerData } from '@/types';
 import { CustomButton } from '..';
 import Image from 'next/image';
+import Rank from './Rank';
 
 const fetchUser = async (): Promise<SummonerData> => {
 	const url = `https://${process.env.SV_1}/lol/summoner/v4/summoners/${process.env.SUMMONER}?api_key=${process.env.API_KEY}`;
@@ -30,7 +31,7 @@ export async function User() {
 					<div className='absolute top-0 w-full h-full gradient-bg' />
 				</div>
 			</div>
-			<div className='h-24 w-full rounded-lg px-3 py-2 md:h-36 md:py-[18px] z-[1] '>
+			<div className='h-24 w-full rounded-lg px-3 py-2 md:h-36 md:py-[18px] z-[2] '>
 				<div className='flex self-center w-full h-full gap-5 '>
 					<div className='flex min-w-[5rem] flex-col items-center justify-center self-center md:block md:min-w-[6rem] relative h-[5rem] w-20 md:h-24 md:w-24 object-contain'>
 						<Image
@@ -48,20 +49,18 @@ export async function User() {
 						</div>
 					</div>
 					<div className='flex flex-col justify-between w-full gap-1'>
-						<div className='flex flex-wrap gap-1 md:gap-2 '>
-							{seasonElo
-								.map((el) => (
-									<div key={el.season}>
-										<div className='h-auto text-center'>
-											<span className='flex gap-1 rounded-md bg-red-700 px-1 py-[0.5px] text-[0.5rem] font-medium text-zinc-50 dark:bg-cyan-600  md:px-2 md:text-xs md:font-semibold '>
-												<p>S{el.season}</p>
-												<p>{el.elo}</p>
-											</span>
-										</div>
-									</div>
-								))
-								.reverse()}
+						<div className='flex items-center gap-1 '>
+							{seasonElo.slice(-1).map((el) => (
+								<div className='text-center' key={el.season}>
+									<span className='flex gap-1 rounded-md bg-red-700 text-[0.55rem] leading-3 font-medium text-zinc-50 dark:bg-cyan-600 sm:text-xs md:font-semibold bg-opacity-80 px-2 py-1'>
+										<p>S{el.season}</p>
+										<p>{el.elo}</p>
+									</span>
+								</div>
+							))}
+							<Rank />
 						</div>
+
 						<h2 className='text-base font-semibold md:text-2xl'>{name || 'Mirato'}</h2>
 
 						<CustomButton

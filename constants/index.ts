@@ -40,36 +40,36 @@ export const spells = [
 ];
 
 export const seasonElo = [
-	// {
-	// 	season: 3,
-	// 	elo: 'Plata',
-	// 	color: 'text-gray-400',
-	// },
-	// {
-	// 	season: 4,
-	// 	elo: 'Oro',
-	// 	color: 'text-yellow-700',
-	// },
-	// {
-	// 	season: 5,
-	// 	elo: 'Diamante',
-	// 	color: 'text-cyan-400',
-	// },
-	// {
-	// 	season: 6,
-	// 	elo: 'Diamante',
-	// 	color: 'text-cyan-400',
-	// },
-	// {
-	// 	season: 7,
-	// 	elo: 'Master',
-	// 	color: 'text-purple-500',
-	// },
-	// {
-	// 	season: 8,
-	// 	elo: 'Master',
-	// 	color: 'text-purple-500',
-	// },
+	{
+		season: 3,
+		elo: 'Plata',
+		color: 'text-gray-400',
+	},
+	{
+		season: 4,
+		elo: 'Oro',
+		color: 'text-yellow-700',
+	},
+	{
+		season: 5,
+		elo: 'Diamante',
+		color: 'text-cyan-400',
+	},
+	{
+		season: 6,
+		elo: 'Diamante',
+		color: 'text-cyan-400',
+	},
+	{
+		season: 7,
+		elo: 'Master',
+		color: 'text-purple-500',
+	},
+	{
+		season: 8,
+		elo: 'Master',
+		color: 'text-purple-500',
+	},
 	{
 		season: 9,
 		elo: 'Challenger',

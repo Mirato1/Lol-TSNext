@@ -13,32 +13,31 @@ const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 	return (
 		<Disclosure>
 			{({ open }) => (
-				<div>
+				<>
 					<div
-						className={`w-full rounded-md border-l-[6px] ${
+						className={`w-full justify-between rounded-md border-l-[6px] ${
 							info?.user?.win
 								? 'border-blue-600 bg-blue-200 dark:bg-blue-500'
 								: 'border-red-600 bg-red-200  dark:bg-red-500'
 						} flex gap-1 dark:bg-opacity-30 h-24 `}
 					>
-						<div className='flex p-[6px] gap-1 w-[90%]' style={{ flex: '1 0 auto' }}>
+						<div className='flex p-[6px] gap-1 w-[92%]' style={{ flex: 1 }}>
 							<Info info={info} />
 							<ChampInfo info={info} />
-							<div className='flex w-[30%] gap-1 ml-1 lg:ml-5 lg:gap-4'>
+							<div className='sm:flex w-[32%] gap-1 ml-1 lg:ml-5 lg:gap-4 hidden'>
 								<GameParticipants data={info.participants.slice(0, 5)} />
 								<GameParticipants data={info.participants.slice(5)} />
 							</div>
 						</div>
-						<Disclosure.Button>
-							<div
-								className={`flex items-end justify-center w-10 rounded-r-md rounded-br-md pb-2 cursor-pointer h-full ${
-									info?.user?.win
-										? 'bg-blue-300/50 dark:bg-blue-700/50 hover:bg-blue-400/50 dark:hover:bg-blue-600/50 text-blue-500 dark:text-blue-400 '
-										: 'bg-red-300/50 dark:bg-red-700/50 hover:bg-red-400/50 dark:hover:bg-red-600/50 text-red-500 dark:text-red-400'
-								}`}
-							>
-								<BsArrowDown />
-							</div>
+						<Disclosure.Button
+							className={`flex z-[1] items-end justify-center w-9 rounded-r-md rounded-br-md pb-2 cursor-pointer h-full ${
+								info?.user?.win
+									? 'bg-blue-300 dark:bg-blue-700 hover:bg-blue-400 dark:hover:bg-blue-600 text-blue-500 dark:text-blue-400 '
+									: 'bg-red-300 dark:bg-red-700 hover:bg-red-400 dark:hover:bg-red-600 text-red-500 dark:text-red-400'
+							}`}
+							style={{ maxWidth: 34 }}
+						>
+							<BsArrowDown />
 						</Disclosure.Button>
 					</div>
 					<Transition
@@ -54,7 +53,7 @@ const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 							<DetailsRender />
 						</Disclosure.Panel>
 					</Transition>
-				</div>
+				</>
 			)}
 		</Disclosure>
 	);
@@ -110,17 +109,21 @@ const GameParticipants = ({ data }: GameParticipantsProps) => {
 
 const Info = ({ info }: any) => (
 	<div className='flex h-full max-w-[60px] flex-col justify-evenly lg:max-w-[7rem]'>
-		<p className='text-[.55rem] font-semibold lg:text-xs'>Ranked Solo</p>
-		<p className='text-[.55rem] lg:text-xs '>{moment(info.gameEndTimestamp).fromNow()}</p>
+		<p className='text-[.45rem] sm:text-[.55rem] font-semibold lg:text-xs'>Ranked Solo</p>
+		<p className='text-[.45rem] sm:text-[.55rem] lg:text-xs '>{moment(info.gameEndTimestamp).fromNow()}</p>
 
 		<hr
 			className={`mx-0 my-[2px] h-[0.5px] w-auto ${info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '} `}
 		/>
 		<div>
-			<p className={`text-[.55rem] font-semibold lg:text-xs ${info?.user?.win ? 'text-blue-500' : 'text-red-500'}`}>
+			<p
+				className={`text-[.45rem] sm:text-[.55rem] font-semibold lg:text-xs ${
+					info?.user?.win ? 'text-blue-500' : 'text-red-500'
+				}`}
+			>
 				{info?.user?.win ? 'Victoria' : 'Derrota'}
 			</p>
-			<p className='text-[.55rem] lg:text-xs'>
+			<p className='text-[.45rem] sm:text-[.55rem] lg:text-xs'>
 				{Math.floor(info.gameDuration / 60) + ':' + ('0' + Math.round(info.gameDuration % 60)).slice(-2)}
 			</p>
 		</div>
@@ -131,7 +134,7 @@ const ChampInfo = ({ info }: any) => (
 	<div className='flex gap-1 lg:gap-2'>
 		<div className='flex flex-col justify-around '>
 			<div className='flex items-center gap-1'>
-				<div className='relative object-cover w-11 h-11 lg:w-12 lg:h-12'>
+				<div className='relative object-cover w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12'>
 					<Image
 						src={`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/img/champion/${info.user?.championName}.png`}
 						alt='champ-icon'
@@ -140,7 +143,7 @@ const ChampInfo = ({ info }: any) => (
 						fill
 						className='object-cover rounded-full'
 					/>
-					<span className='absolute bottom-0 right-0 rounded-full bg-slate-800 text-center px-1 py-[2px] w-5 text-xs text-zinc-100 '>
+					<span className='absolute bottom-0 right-0 rounded-full bg-slate-800 text-center p-0 sm:px-1 sm:py-[2px]  w-4 text-[.6rem] sm:w-5 sm:text-xs text-zinc-100 '>
 						{info.user.champLevel}
 					</span>
 				</div>
@@ -181,13 +184,13 @@ const ChampInfo = ({ info }: any) => (
 					))}
 				</div>
 
-				<div className='w-[65px] ml-1'>
-					<p className='text-[.85rem] font-semibold '>
+				<div className=' w-[50px] sm:w-[65px] ml-1'>
+					<p className='text-[.65rem] sm:text-[.85rem] font-semibold '>
 						{info.user.kills} <span className=' font-extralight'>/</span>
 						<span className='text-red-600'>{info.user.deaths}</span>
 						<span className=' font-extralight'>/</span> {info.user.assists}
 					</p>
-					<p className='text-[.65rem] font-light'>
+					<p className='text-[.55rem] sm:text-[.65rem] font-light'>
 						{info.user.deaths === 0 ? 'Perfect KDA' : `${info.user.challenges.kda.toFixed(2)}:1KDA`}
 					</p>
 				</div>
@@ -198,7 +201,7 @@ const ChampInfo = ({ info }: any) => (
 					return (
 						<div
 							key={r}
-							className={`rounded-md relative w-5 h-5 lg:h-6 lg:w-6 ${
+							className={`rounded-md relative w-5 h-5 sm:w-5 sm:h-5 lg:h-6 lg:w-6 ${
 								info?.user?.win ? ' bg-blue-400 dark:bg-blue-500/50 ' : ' bg-red-400 dark:bg-red-500/50 '
 							}`}
 						>
@@ -220,7 +223,7 @@ const ChampInfo = ({ info }: any) => (
 			</div>
 		</div>
 		<div
-			className={`border-l-2 ${
+			className={`border-l-2 min-w-[56px] ${
 				info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '
 			} flex flex-col justify-around pl-1 lg:pl-2 `}
 		>
@@ -243,7 +246,7 @@ const ChampInfo = ({ info }: any) => (
 					info.user.tripleKills > 0 ||
 					info.user.quadraKills > 0 ||
 					info.user.pentaKills > 0) && (
-					<div className='flex h-full items-center justify-center rounded-3xl bg-red-500 bg-opacity-50 object-cover font-semibold text-zinc-100 px-1 py-[2px] text-[.55rem] '>
+					<div className='flex h-full items-center justify-center rounded-3xl bg-red-500 bg-opacity-50 object-cover font-semibold text-zinc-100 p-[1px] sm:px-1 sm:py-[2px] text-[.5rem] sm:text-[.55rem] lg:text-xs '>
 						{(info.user.doubleKills > 0 && 'Double Kill') ||
 							(info.user.tripleKills > 0 && 'Triple Kill') ||
 							(info.user.quadraKills > 0 && 'Quadra Kill') ||

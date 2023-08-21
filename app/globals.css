@@ -45,7 +45,7 @@
 
 /* Background Image */
 .bg-img {
-	@apply bg-[url(https://mirato1.github.io/Lol-Page/assets/Aatrox_wall.jpg)] bg-cover bg-center bg-no-repeat transition-all duration-300 dark:bg-[url(https://pbs.twimg.com/media/FwQiVByacAIxhVa?format=jpg&name=4096x4096)];
+	@apply bg-[url(https://mirato1.github.io/Lol-Page/assets/Aatrox_wall.jpg)] bg-[65%] bg-cover md:bg-center bg-no-repeat transition-all duration-300 dark:bg-[url(https://pbs.twimg.com/media/FwQiVByacAIxhVa?format=jpg&name=4096x4096)];
 }
 
 .gradient-bg {
@@ -64,7 +64,7 @@
 
 /* Navbar */
 .navbar {
-	@apply gap-4 border-b px-8  py-5;
+	@apply gap-4 px-8 py-5 border-b;
 }
 
 .link-active {
@@ -77,12 +77,12 @@
 
 /* * Profile Page */
 .profile__container {
-	@apply flex w-full flex-col items-center gap-3;
+	@apply flex flex-col items-center w-full gap-3;
 }
 
 /* Button */
 .custom-btn {
-	@apply relative flex flex-row items-center justify-center rounded-md border border-red-600 bg-red-800 p-1 md:p-2 text-xs font-medium uppercase text-zinc-50 outline-none transition-colors duration-150 ease-in-out hover:border-red-800 hover:bg-red-700 dark:border-cyan-300 dark:bg-cyan-800 dark:hover:border-cyan-400 dark:hover:bg-cyan-600 md:h-8  md:text-base;
+	@apply relative flex flex-row items-center justify-center p-1 text-xs font-medium uppercase transition-colors duration-150 ease-in-out bg-red-800 border border-red-600 rounded-md outline-none md:p-2 text-zinc-50 hover:border-red-800 hover:bg-red-700 dark:border-cyan-300 dark:bg-cyan-800 dark:hover:border-cyan-400 dark:hover:bg-cyan-600 md:h-8 md:text-base;
 }
 
 body {

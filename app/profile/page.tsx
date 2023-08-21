@@ -5,7 +5,7 @@ const Profile = () => {
 		<main className='container'>
 			<article className='relative mt-4 profile__container'>
 				<User />
-				<div className='flex flex-col md:flex-row w-full gap-4 px-3 z-[1]'>
+				<div className='flex flex-col md:flex-row w-full gap-4 px-0 sm:px-3 z-[1]'>
 					<Ranked />
 					<History />
 				</div>
