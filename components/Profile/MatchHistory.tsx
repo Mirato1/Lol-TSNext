@@ -7,6 +7,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import { Match, MatchHistoryProps, Rune } from '@/types';
 import Image from 'next/image';
+import MatchDetail from './MatchDetail';
 moment.locale('es');
 
 const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
@@ -32,40 +33,30 @@ const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 						<Disclosure.Button
 							className={`flex z-[1] items-end justify-center w-9 rounded-r-md rounded-br-md pb-2 cursor-pointer h-full ${
 								info?.user?.win
-									? 'bg-blue-300 dark:bg-blue-700 hover:bg-blue-400 dark:hover:bg-blue-600 text-blue-500 dark:text-blue-400 '
-									: 'bg-red-300 dark:bg-red-700 hover:bg-red-400 dark:hover:bg-red-600 text-red-500 dark:text-red-400'
+									? 'bg-blue-300 dark:bg-blue-700/70 hover:bg-blue-400/70 dark:hover:bg-blue-600/70 text-blue-500  '
+									: 'bg-red-300 dark:bg-red-700/70 hover:bg-red-400/70 dark:hover:bg-red-600/70 text-red-500 '
 							}`}
 							style={{ maxWidth: 34 }}
 						>
-							<BsArrowDown />
+							<BsArrowDown className={`transition-transform font-bold duration-200 ${open ? 'rotate-180' : ''}`} />
 						</Disclosure.Button>
 					</div>
 					<Transition
 						show={open}
-						enter='transition duration-100 ease-out'
-						enterFrom='transform scale-95 opacity-0'
-						enterTo='transform scale-100 opacity-100'
-						leave='transition duration-75 ease-out'
-						leaveFrom='transform scale-100 opacity-100'
-						leaveTo='transform scale-95 opacity-0'
+						enter='transition ease duration-500 transform'
+						enterFrom='opacity-0 -translate-y-4'
+						enterTo='opacity-100 translate-y-0'
+						leave='transition ease duration-300 transform'
+						leaveFrom='opacity-100 translate-y-0'
+						leaveTo='opacity-0 -translate-y-4'
 					>
 						<Disclosure.Panel static>
-							<DetailsRender />
+							<MatchDetail info={info} />
 						</Disclosure.Panel>
 					</Transition>
 				</>
 			)}
 		</Disclosure>
-	);
-};
-
-const DetailsRender = () => {
-	return (
-		<div
-			className={`w-full rounded-md border-l-[6pxborder-blue-600 bg-blue-200 dark:bg-blue-500 dark:bg-opacity-30 p-2`}
-		>
-			Yes! You can purchase a license that you can share with your entire team.
-		</div>
 	);
 };
 
@@ -112,7 +103,9 @@ const GameParticipants = ({ data }: GameParticipantsProps) => {
 
 const Info = ({ info }: any) => (
 	<div className='flex h-full max-w-[58px] flex-col justify-evenly lg:max-w-[5.5rem] w-full '>
-		<p className='text-[.55rem] font-semibold lg:text-xs'>Ranked Solo</p>
+		<p className={`text-[.55rem] font-semibold lg:text-xs ${info?.user?.win ? 'text-blue-500' : 'text-red-500'}`}>
+			Ranked Solo
+		</p>
 		<p className='text-[.55rem] lg:text-[.65rem] '>{moment(info.gameEndTimestamp).fromNow()}</p>
 
 		<hr
@@ -184,7 +177,7 @@ const ChampInfo = ({ info }: any) => (
 				</div>
 
 				<div className=' w-[50px] sm:w-[65px] ml-1'>
-					<p className='text-[.85rem] lg:text-sm font-semibold '>
+					<p className='text-[.85rem] lg:text-base font-semibold '>
 						{info.user.kills} <span className=' font-extralight'>/</span>
 						<span className='text-red-600'>{info.user.deaths}</span>
 						<span className=' font-extralight'>/</span> {info.user.assists}

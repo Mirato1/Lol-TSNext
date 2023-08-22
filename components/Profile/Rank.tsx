@@ -23,8 +23,8 @@ const Rank = () => {
 			>
 				<Menu.Items className='z-[1] absolute w-full mt-8 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-red-600/90 dark:bg-cyan-600/90'>
 					{seasonEloWithoutLast.map((el) => (
-						<Menu.Item>
-							<div className='h-auto text-center' key={el.season}>
+						<Menu.Item key={el.season}>
+							<div className='h-auto text-center'>
 								<span className='flex gap-1 p-1 text-[0.65rem] md:text-xs font-semibold text-zinc-50'>
 									<p>S{el.season}</p>
 									<p>{el.elo}</p>
