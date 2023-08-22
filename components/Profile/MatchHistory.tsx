@@ -177,7 +177,7 @@ const ChampInfo = ({ info }: any) => (
 				</div>
 
 				<div className=' w-[50px] sm:w-[65px] ml-1'>
-					<p className='text-[.85rem] lg:text-base font-semibold '>
+					<p className='text-[.8rem] lg:text-base font-semibold '>
 						{info.user.kills} <span className=' font-extralight'>/</span>
 						<span className='text-red-600'>{info.user.deaths}</span>
 						<span className=' font-extralight'>/</span> {info.user.assists}
