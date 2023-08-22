@@ -62,12 +62,57 @@ export interface Rune {
 }
 
 export interface Match {
+	teamId: number;
+	perks: {
+		styles: [
+			{
+				description: string;
+				selections: [
+					{
+						perk: number;
+						var1: number;
+						var2: number;
+						var3: number;
+					},
+				];
+				style: number;
+			},
+		];
+	};
+	challenges: {
+		kda: number;
+		killParticipation: number;
+		controlWardsPlaced: number;
+	};
+	kills: number;
+	deaths: number;
+	assists: number;
+	goldEarned: number;
+	item0: number;
+	item1: number;
+	item2: number;
+	item3: number;
+	item4: number;
+	item5: number;
+	item6: number;
+	totalMinionsKilled: number;
+	neutralMinionsKilled: number;
 	summonerName: string;
 	championName: string;
+	summoner1Id: number;
+	summoner2Id: number;
+	totalDamageDealtToChampions: number;
+	totalDamageTaken: number;
+	win: boolean;
+	champLevel: number;
+	visionWardsBoughtInGame: number;
+	wardsKilled: number;
+	wardsPlaced: number;
 	// Other properties
 }
 
 interface UserInfo {
+	teamId: number;
 	win: boolean;
 	gameEndTimestamp: number;
 	championName: string;
@@ -81,17 +126,53 @@ interface UserInfo {
 		kda: number;
 		killParticipation: number;
 		controlWardsPlaced: number;
-		// Other properties
 	};
-	// Other properties
 }
 
-interface ParticipantInfo {
+export interface Team {
+	teamId: number;
+	win: boolean;
+	totalGold: number;
+	objectives: {
+		baron: {
+			kills: number;
+			first: boolean;
+		};
+		dragon: {
+			kills: number;
+			first: boolean;
+		};
+		tower: {
+			kills: number;
+			first: boolean;
+		};
+		inhibitor: {
+			kills: number;
+			first: boolean;
+		};
+		champion: {
+			kills: number;
+			first: boolean;
+		};
+		riftHerald: {
+			kills: number;
+			first: boolean;
+		};
+	};
+	bans: {
+		championId: number;
+		pickTurn: number;
+	}[];
+}
+
+interface PlayerInfo {
 	participants: Match[];
 	user: UserInfo;
+	gameDuration: number;
+	teams: Team[];
 	// Other properties
 }
 
 export interface MatchHistoryProps {
-	info: ParticipantInfo;
+	info: PlayerInfo;
 }

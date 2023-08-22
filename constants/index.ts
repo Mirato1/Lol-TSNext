@@ -15,11 +15,19 @@ export const items = ['item0', 'item1', 'item2', 'item3', 'item4', 'item5', 'ite
 export const spells = [
 	{
 		id: 6,
-		name: 'SummonerGhost',
+		name: 'SummonerHaste',
+	},
+	{
+		id: 7,
+		name: 'SummonerHeal',
 	},
 	{
 		id: 4,
 		name: 'SummonerFlash',
+	},
+	{
+		id: 11,
+		name: 'SummonerSmite',
 	},
 	{
 		id: 3,
@@ -120,3 +128,7 @@ export const mains = [
 	'Sett',
 	'Akali',
 ];
+
+export const columnsDetail = ['KDA', 'Damage', 'Wards', 'Gold', 'CS', 'Items'];
+
+export const userNames = ['TwTV Mirato', 'Mirato'];

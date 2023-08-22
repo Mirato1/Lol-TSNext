@@ -1,4 +1,4 @@
-import { spells } from '@/constants';
+import { spells, userNames } from '@/constants';
 import { MatchHistory } from '..';
 
 async function fetchJSON(url: RequestInfo | URL) {
@@ -24,9 +24,7 @@ async function fetchMatchesData() {
 				const match = await fetchJSON(
 					`https://americas.api.riotgames.com/lol/match/v5/matches/${result}?api_key=${process.env.API_KEY}`,
 				);
-				const user = match.info?.participants.find(
-					(x: { summonerName: string }) => x.summonerName === 'Mirato' || x.summonerName === 'TwTV Mirato',
-				);
+				const user = match.info?.participants.find((x: { summonerName: string }) => userNames.includes(x.summonerName));
 
 				if (user) {
 					let summoners = [];

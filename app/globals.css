@@ -92,25 +92,26 @@ body {
 /* width */
 ::-webkit-scrollbar {
 	width: 8px;
+	height: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: rgb(228 228 231 / 10);
+	background: rgb(228 228 231 / 50);
 	border-radius: 100px;
 }
 .dark ::-webkit-scrollbar-track {
-	background: rgb(15 23 42 / 10);
+	background: rgb(15 23 42 / 50);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: rgb(239 68 68 / 10);
+	background: rgb(239 68 68 / 50);
 	border: 6px solid rgba(0, 0, 0, 0.2);
 	border-radius: 100px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-	background: rgb(34 211 238 / 10);
-	border: 6px solid rgba(0, 0, 0, 0.2);
+	background: rgb(34 211 238 / 50);
+	border: 3px solid rgba(0, 0, 0, 0.2);
 }

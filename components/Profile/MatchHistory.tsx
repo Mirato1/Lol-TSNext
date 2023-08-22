@@ -1,5 +1,5 @@
 'use client';
-import { items } from '@/constants';
+import { items, userNames } from '@/constants';
 import { Disclosure, Transition } from '@headlessui/react';
 import React from 'react';
 import { BsArrowDown } from 'react-icons/bs';
@@ -8,7 +8,7 @@ import 'moment/locale/es';
 import { Match, MatchHistoryProps, Rune } from '@/types';
 import Image from 'next/image';
 import MatchDetail from './MatchDetail';
-moment.locale('es');
+moment.locale('en');
 
 const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 	return (
@@ -18,8 +18,8 @@ const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 					<div
 						className={`w-full justify-between rounded-md border-l-[6px] ${
 							info?.user?.win
-								? 'border-blue-600 bg-blue-200 dark:bg-blue-500'
-								: 'border-red-600 bg-red-200  dark:bg-red-500'
+								? 'border-blue-600 bg-blue-100/60 dark:bg-blue-500'
+								: 'border-red-600 bg-red-100/60  dark:bg-red-500'
 						} flex gap-1 dark:bg-opacity-30 h-24 `}
 					>
 						<div className='flex p-[6px] gap-1 w-[92%]' style={{ flex: 1 }}>
@@ -33,12 +33,16 @@ const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 						<Disclosure.Button
 							className={`flex z-[1] items-end justify-center w-9 rounded-r-md rounded-br-md pb-2 cursor-pointer h-full ${
 								info?.user?.win
-									? 'bg-blue-300 dark:bg-blue-700/70 hover:bg-blue-400/70 dark:hover:bg-blue-600/70 text-blue-500  '
-									: 'bg-red-300 dark:bg-red-700/70 hover:bg-red-400/70 dark:hover:bg-red-600/70 text-red-500 '
+									? 'bg-blue-200 dark:bg-blue-800/70 hover:bg-blue-300/70 dark:hover:bg-blue-600/70 '
+									: 'bg-red-200 dark:bg-red-800/70 hover:bg-red-300/70 dark:hover:bg-red-600/70 '
 							}`}
 							style={{ maxWidth: 34 }}
 						>
-							<BsArrowDown className={`transition-transform font-bold duration-200 ${open ? 'rotate-180' : ''}`} />
+							<BsArrowDown
+								className={`${
+									info.user.win ? 'fill-blue-600 dark:fill-blue-300' : 'fill-red-600 dark:fill-red-300'
+								}  transition-transform font-bold duration-200 ${open ? 'rotate-180' : ''}`}
+							/>
 						</Disclosure.Button>
 					</div>
 					<Transition
@@ -77,17 +81,13 @@ const GameParticipants = ({ data }: GameParticipantsProps) => {
 							priority
 							quality={50}
 							fill
-							className={`object-cover ${
-								el.summonerName === 'Mirato' || (el.summonerName === 'TwTV Mirato' && 'rounded-full')
-							} `}
+							className={`object-cover ${userNames.includes(el.summonerName) && 'rounded-full'} `}
 						/>
 					</div>
 					<a
 						title={el.summonerName}
 						className={`overflow-hidden text-ellipsis whitespace-nowrap text-[0.6rem] lg:text-[0.7rem] truncate ${
-							el.summonerName === 'Mirato' || el.summonerName === 'TwTV Mirato'
-								? 'font-semibold opacity-100'
-								: 'font-medium opacity-80'
+							userNames.includes(el.summonerName) ? 'font-semibold opacity-100' : 'font-medium opacity-80'
 						}`}
 						href={`https://www.op.gg/summoners/br/${el.summonerName}`}
 						target='_blank'
@@ -113,7 +113,7 @@ const Info = ({ info }: any) => (
 		/>
 		<div>
 			<p className={`text-[.55rem] font-semibold lg:text-xs ${info?.user?.win ? 'text-blue-500' : 'text-red-500'}`}>
-				{info?.user?.win ? 'Victoria' : 'Derrota'}
+				{info?.user?.win ? 'Victory' : 'Defeat'}
 			</p>
 			<p className='text-[.55rem] lg:text-xs'>
 				{Math.floor(info.gameDuration / 60) + ':' + ('0' + Math.round(info.gameDuration % 60)).slice(-2)}
@@ -223,8 +223,8 @@ const ChampInfo = ({ info }: any) => (
 				<p className='font-semibold text-red-600 text-[.55rem] lg:text-xs'>
 					P/Kill {(info.user.challenges.killParticipation * 100 || 0).toFixed(0)}%
 				</p>
-				<p className='opacity-75 text-[.55rem] lg:text-xs'>Control Ward {info.user.challenges.controlWardsPlaced}</p>
-				<p className='opacity-75 text-[.55rem] lg:text-xs'>
+				<p className='opacity-90 text-[.55rem] lg:text-xs'>Control Ward {info.user.challenges.controlWardsPlaced}</p>
+				<p className='opacity-90 text-[.55rem] lg:text-xs'>
 					CS {info.user.totalMinionsKilled + info.user.neutralMinionsKilled} (
 					{(
 						(info.user.totalMinionsKilled + info.user.neutralMinionsKilled) /
