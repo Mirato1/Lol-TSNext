@@ -19,6 +19,12 @@ const MatchDetail: React.FC<MatchHistoryProps> = ({ info }) => {
 	const maxDamageDealt = Math.max(...info.participants.map((participant) => participant.totalDamageDealtToChampions));
 	const maxDamageTaken = Math.max(...info.participants.map((participant) => participant.totalDamageTaken));
 
+	const playerTeam = info.participants.filter((participant) => participant.teamId === info?.user?.teamId);
+	const otherTeam = info.participants.filter((participant) => participant.teamId !== info?.user?.teamId);
+
+	// Combina los grupos en el orden deseado (jugador buscado primero)
+	const reorganizedParticipants = [...playerTeam, ...otherTeam];
+
 	return (
 		<div className={`w-full rounded-md bg-zinc-100 dark:bg-slate-500 dark:bg-opacity-20 p-2 `}>
 			<Tab.Group>
@@ -64,14 +70,14 @@ const MatchDetail: React.FC<MatchHistoryProps> = ({ info }) => {
 							gameDuration={info.gameDuration}
 							maxDamageDealt={maxDamageDealt}
 							maxDamageTaken={maxDamageTaken}
-							participants={info.participants.slice(0, 5)}
+							participants={reorganizedParticipants.slice(0, 5)}
 						/>
 						<MatchInfo info={info} />
 						<TableTeam
 							gameDuration={info.gameDuration}
 							maxDamageDealt={maxDamageDealt}
 							maxDamageTaken={maxDamageTaken}
-							participants={info.participants.slice(5, 10)}
+							participants={reorganizedParticipants.slice(5, 10)}
 						/>
 					</Tab.Panel>
 					<Tab.Panel>Content 2</Tab.Panel>
@@ -86,14 +92,14 @@ const TableTeam = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 		<table className='w-full overflow-hidden rounded-md '>
 			<thead className='min-w-full bg-zinc-300/40 dark:bg-slate-600/40'>
 				<tr>
-					<th className={`px-2 lg:px-3 py-2 lg:py-3 text-xs font-medium tracking-wider text-center`}>
+					<th className={`px-2 py-2 lg:py-3 text-xs font-medium tracking-wider text-center`}>
 						<span className={`font-bold ${participants[0]?.win ? 'text-blue-500' : 'text-red-500'} `}>
 							{participants[0].win ? 'Victory ' : 'Defeat '}
 						</span>
 						({participants[0].teamId === 100 ? 'Blue' : 'Red'} Team)
 					</th>
 					{columnsDetail.map((column) => (
-						<th key={column} className='px-2 py-2 text-xs font-medium tracking-wider text-center lg:py-3 lg:px-3 '>
+						<th key={column} className='px-2 py-2 text-xs font-medium tracking-wider text-center lg:py-3'>
 							{column}
 						</th>
 					))}
@@ -129,10 +135,10 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 							: participant.win
 							? 'bg-blue-200/40 dark:bg-blue-500/20'
 							: 'bg-red-200/40 dark:bg-red-500/30'
-					} text-xs text-center`}
+					} text-[.65rem] lg:text-xs text-center`}
 					key={participant.summonerName}
 				>
-					<td className='px-2 py-1 lg:px-3 whitespace-nowrap '>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[140px]  lg:min-w-[180px] w-full max-w-[180px]'>
 						<div className='flex gap-1'>
 							<div className='relative w-8 h-8 '>
 								<Image
@@ -148,7 +154,7 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 									{participant.champLevel}
 								</span>
 							</div>
-							<div className='flex flex-col gap-[2px]'>
+							<div className='flex flex-col gap-[2px] justify-center'>
 								{spellPropertyNames.map((propertyName) => (
 									<div key={propertyName} className='relative w-3 h-3 lg:w-4 lg:h-4'>
 										<Image
@@ -165,7 +171,7 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 									</div>
 								))}
 							</div>
-							<div className='flex flex-col gap-[2px]'>
+							<div className='flex flex-col gap-[2px] justify-center'>
 								{participant.perks.styles.map((style) => {
 									return (
 										<div
@@ -191,12 +197,14 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 									);
 								})}
 							</div>
-							<span className='flex items-center justify-center '>{participant.summonerName}</span>
+							<span className='flex items-center justify-start max-w-[55px] lg:max-w-[80px] overflow-hidden'>
+								<span className='truncate'>{participant.summonerName}</span>
+							</span>
 						</div>
 					</td>
 
-					<td className='px-2 py-1 lg:px-3 whitespace-nowrap'>
-						<p className='text-[.85rem] lg:text-xs font-medium '>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[90px] w-full max-w-[90px]'>
+						<p className='text-[.65rem] lg:text-xs font-medium '>
 							{participant.kills} <span className=' font-extralight'>/</span>
 							<span className='text-red-600 dark:text-red-400'>{participant.deaths}</span>
 							<span className=' font-extralight'>/</span> {participant.assists}
@@ -207,23 +215,25 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 						</p>
 					</td>
 
-					<td className='px-2 py-1 lg:px-3 whitespace-nowrap'>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[100px] lg:min-w-[150px] w-full max-w-[150px]'>
 						<div className='flex gap-1'>
 							<ProgressBar value={participant.totalDamageDealtToChampions} maxValue={maxDamageDealt} type='deal' />
 							<ProgressBar value={participant.totalDamageTaken} maxValue={maxDamageTaken} type='taken' />
 						</div>
 					</td>
 
-					<td className='px-2 py-1 lg:px-3 whitespace-nowrap'>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[55px] w-full max-w-[55px]'>
 						{participant.visionWardsBoughtInGame}
 						<div>
 							{participant.wardsKilled} / {participant.wardsPlaced}
 						</div>
 					</td>
 
-					<td className='px-2 py-1 lg:px-3 whitespace-nowrap'>{participant.goldEarned.toLocaleString()}</td>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[50px] w-full max-w-[50px]'>
+						{participant.goldEarned.toLocaleString()}
+					</td>
 
-					<td className='px-2 py-1 lg:px-3 whitespace-nowrap'>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[50px] w-full max-w-[50px]'>
 						{participant.totalMinionsKilled + participant.neutralMinionsKilled}
 						<div>
 							{(
@@ -234,7 +244,7 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 						</div>
 					</td>
 
-					<td className='px-2 py-1 lg:px-3 whitespace-nowrap '>
+					<td className='w-full px-2 py-1 whitespace-nowrap '>
 						<div className='flex gap-[2px]'>
 							{items.map((itemKey) => {
 								const itemValue = participant[itemKey as keyof Match]; // Acceso usando notación de índice
@@ -304,7 +314,7 @@ const MatchInfo: React.FC<MatchHistoryProps> = ({ info }) => {
 	});
 
 	return (
-		<div className='flex justify-around gap-1 px-2 py-3 lg:px-3 whitespace-nowrap '>
+		<div className='flex justify-around gap-2 px-2 py-3 lg:px-3 whitespace-nowrap min-w-[650px] '>
 			<TeamStats team={updatedTeams[0]} />
 			<TeamComparison teams={updatedTeams} />
 			<TeamStats team={updatedTeams[1]} />
