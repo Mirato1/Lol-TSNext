@@ -138,7 +138,7 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 					} text-[.65rem] lg:text-xs text-center`}
 					key={participant.summonerName}
 				>
-					<td className='px-2 py-1  whitespace-nowrap min-w-[140px]  lg:min-w-[180px] w-full max-w-[180px]'>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[150px] max-w-[150px] lg:min-w-[180px] w-full lg:max-w-[180px]'>
 						<div className='flex gap-1'>
 							<div className='relative w-8 h-8 '>
 								<Image
@@ -197,7 +197,7 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 									);
 								})}
 							</div>
-							<span className='flex items-center text-[.6rem] lg:text-[.7rem] justify-start max-w-[75px] lg:max-w-[105px] overflow-hidden'>
+							<span className='flex items-center text-[.6rem] lg:text-[.65rem] justify-start max-w-[75px] lg:max-w-[105px] overflow-hidden'>
 								<a
 									title={participant.summonerName}
 									className='truncate'
