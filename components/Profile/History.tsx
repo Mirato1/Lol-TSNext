@@ -12,7 +12,7 @@ async function fetchMatchesData() {
 			`${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_PATCH}/data/es_ES/runesReforged.json`,
 		);
 		const gamesId = await fetchJSON(
-			`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${process.env.PUUID}/ids?queue=420&start=0&count=10&api_key=${process.env.API_KEY}`,
+			`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${process.env.NEXT_PUBLIC_PUUID}/ids?queue=420&start=0&count=10&api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
 		);
 
 		if (!gamesId) {
@@ -22,7 +22,7 @@ async function fetchMatchesData() {
 		const history = await Promise.all(
 			gamesId.map(async (result: any) => {
 				const match = await fetchJSON(
-					`https://americas.api.riotgames.com/lol/match/v5/matches/${result}?api_key=${process.env.API_KEY}`,
+					`https://americas.api.riotgames.com/lol/match/v5/matches/${result}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`,
 				);
 				const user = match.info?.participants.find((x: { summonerName: string }) => userNames.includes(x.summonerName));
 
@@ -78,7 +78,9 @@ export async function History() {
 
 	return (
 		<div className='flex flex-col flex-1 w-full gap-2 md:w-8/12'>
-			{history?.map((el) => <MatchHistory key={el.metadata?.matchId} info={el.info} />)}
+			{history?.map((el) => (
+				<MatchHistory key={el.metadata?.matchId} info={el.info} />
+			))}
 		</div>
 	);
 }

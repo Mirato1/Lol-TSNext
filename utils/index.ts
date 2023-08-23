@@ -65,3 +65,16 @@ export const handleData = async ({ url, data = null, filter = null }: FetchOptio
 		};
 	}
 };
+
+interface FetchData {
+	url: string; // Aquí puedes definir el tipo correcto para queryKey
+}
+
+export const fetchData = async ({ url }: FetchData) => {
+	return await fetch(url)
+		.then(async (res) => {
+			if (!res.ok) throw new Error('Error en la petición');
+			return await res.json();
+		})
+		.then((res) => res);
+};

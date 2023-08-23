@@ -44,13 +44,13 @@ const Navbar = () => {
 					custom='100%'
 					className='flex justify-between max-w-6xl px-4 py-3 mx-auto'
 				>
-					<h1 className='text-2xl font-semibold text-red-500 dark:text-cyan-400'>MIRATOP</h1>
+					<h1 className='text-2xl font-semibold text-red-600 dark:text-cyan-400'>MIRATOP</h1>
 					<ul className='flex items-center'>
 						{headerLinks.map((link) => (
 							<li
 								key={link.url}
 								className={`hidden px-4 py-0 text-center text-sm  font-bold 
-                transition-colors duration-500 hover:text-red-500 dark:hover:text-cyan-300 md:list-item ${
+                transition-colors duration-500 hover:text-red-600 dark:hover:text-cyan-300 md:list-item ${
 									path === link.url ? 'link-active' : path === '/' ? 'text-zinc-100' : ''
 								}`}
 							>

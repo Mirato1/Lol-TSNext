@@ -8,6 +8,7 @@ import ClientProvider from './providers/ClientProvider';
 import CustomButton from './CustomButton';
 import { History } from './Profile/History';
 import MatchHistory from './Profile/MatchHistory';
+import QueryHydrate from './HydrateClient';
 
 export {
 	Footer,
@@ -20,4 +21,5 @@ export {
 	CustomButton,
 	History,
 	MatchHistory,
+	QueryHydrate,
 };

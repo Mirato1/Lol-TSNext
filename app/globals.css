@@ -68,7 +68,7 @@
 }
 
 .link-active {
-	@apply text-red-500 !important;
+	@apply text-red-600 !important;
 }
 
 .dark .link-active {

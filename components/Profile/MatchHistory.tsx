@@ -240,7 +240,7 @@ const ChampInfo = ({ info }: any) => (
 					info.user.tripleKills > 0 ||
 					info.user.quadraKills > 0 ||
 					info.user.pentaKills > 0) && (
-					<div className='flex h-full items-center justify-center rounded-3xl bg-red-500 bg-opacity-50 object-cover font-semibold text-zinc-100 p-[1px] sm:px-1 sm:py-[2px] text-[.5rem] sm:text-[.55rem] lg:text-xs '>
+					<div className='flex h-full items-center justify-center rounded-3xl bg-red-500 bg-opacity-80 object-cover font-semibold text-zinc-100 p-[1px] sm:px-1 sm:py-[2px] text-[.5rem] sm:text-[.55rem] lg:text-xs '>
 						{(info.user.doubleKills > 0 && 'Double Kill') ||
 							(info.user.tripleKills > 0 && 'Triple Kill') ||
 							(info.user.quadraKills > 0 && 'Quadra Kill') ||
