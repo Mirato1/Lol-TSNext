@@ -35,10 +35,10 @@ const MatchDetail: React.FC<MatchHistoryProps> = ({ info }) => {
 								className={`px-2 py-[2px] text-base ${
 									selected
 										? info?.user?.win
-											? 'text-cyan-500  border-cyan-500 font-bold'
+											? 'text-blue-500  border-blue-500 font-bold'
 											: 'text-red-500  border-red-500 font-bold'
 										: info?.user?.win
-										? ' border-zinc-300 hover:border-cyan-500 hover:text-cyan-500'
+										? ' border-zinc-300 hover:border-blue-500 hover:text-blue-500'
 										: ' border-zinc-300 hover:border-red-500 hover:text-red-500'
 								} transition-all duration-300 ease-in-out border-b-2 `}
 							>
@@ -52,10 +52,10 @@ const MatchDetail: React.FC<MatchHistoryProps> = ({ info }) => {
 								className={`px-2 py-[2px] text-base ${
 									selected
 										? info?.user?.win
-											? 'text-cyan-500  border-cyan-500 font-bold'
+											? 'text-blue-500  border-blue-500 font-bold'
 											: 'text-red-500  border-red-500 font-bold'
 										: info?.user?.win
-										? ' border-zinc-300 hover:border-cyan-500 hover:text-cyan-500'
+										? ' border-zinc-300 hover:border-blue-500 hover:text-blue-500'
 										: ' border-zinc-300 hover:border-red-500 hover:text-red-500'
 								} transition-all duration-300 ease-in-out border-b-2 `}
 							>
@@ -92,14 +92,14 @@ const TableTeam = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 		<table className='w-full overflow-hidden rounded-md '>
 			<thead className='min-w-full bg-zinc-300/40 dark:bg-slate-600/40'>
 				<tr>
-					<th className={`px-2 py-2 lg:py-3 text-xs font-medium tracking-wider text-center`}>
+					<th className={`px-2 py-2 text-xs font-medium tracking-wider text-center`}>
 						<span className={`font-bold ${participants[0]?.win ? 'text-blue-500' : 'text-red-500'} `}>
 							{participants[0].win ? 'Victory ' : 'Defeat '}
 						</span>
 						({participants[0].teamId === 100 ? 'Blue' : 'Red'} Team)
 					</th>
 					{columnsDetail.map((column) => (
-						<th key={column} className='px-2 py-2 text-xs font-medium tracking-wider text-center lg:py-3'>
+						<th key={column} className='px-2 py-2 text-xs font-medium tracking-wider text-center '>
 							{column}
 						</th>
 					))}
@@ -197,8 +197,16 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 									);
 								})}
 							</div>
-							<span className='flex items-center justify-start max-w-[55px] lg:max-w-[80px] overflow-hidden'>
-								<span className='truncate'>{participant.summonerName}</span>
+							<span className='flex items-center text-[.6rem] lg:text-[.7rem] justify-start max-w-[75px] lg:max-w-[105px] overflow-hidden'>
+								<a
+									title={participant.summonerName}
+									className='truncate'
+									href={`https://www.op.gg/summoners/br/${participant.summonerName}`}
+									target='_blank'
+									rel='noreferrer'
+								>
+									{participant.summonerName}
+								</a>
 							</span>
 						</div>
 					</td>
@@ -215,7 +223,7 @@ const TableRows = ({ participants, gameDuration, maxDamageDealt, maxDamageTaken 
 						</p>
 					</td>
 
-					<td className='px-2 py-1  whitespace-nowrap min-w-[100px] lg:min-w-[150px] w-full max-w-[150px]'>
+					<td className='px-2 py-1  whitespace-nowrap min-w-[100px] lg:min-w-[140px] w-full max-w-[140px]'>
 						<div className='flex gap-1'>
 							<ProgressBar value={participant.totalDamageDealtToChampions} maxValue={maxDamageDealt} type='deal' />
 							<ProgressBar value={participant.totalDamageTaken} maxValue={maxDamageTaken} type='taken' />
@@ -287,7 +295,7 @@ const ProgressBar = ({ value, maxValue, type }: { value: number; maxValue: numbe
 			<div className='h-1 rounded-md bg-zinc-100 dark:bg-slate-500/50'>
 				<div
 					style={{ width: `${(value / maxValue) * 100}%` }}
-					className={`h-full rounded-md ${type === 'deal' ? 'bg-red-600' : 'bg-cyan-500'} `}
+					className={`h-full rounded-md ${type === 'deal' ? 'bg-red-500' : 'bg-blue-500'} `}
 				/>
 			</div>
 		</div>
@@ -295,23 +303,29 @@ const ProgressBar = ({ value, maxValue, type }: { value: number; maxValue: numbe
 };
 
 const MatchInfo: React.FC<MatchHistoryProps> = ({ info }) => {
-	const updatedTeams = info.teams.map((team) => {
-		// Inicializa la suma total del oro para este equipo
-		let totalGold = 0;
+	const updatedTeams = info.teams
+		.map((team) => {
+			// Inicializa la suma total del oro para este equipo
+			let totalGold = 0;
 
-		// Itera sobre los participantes de este equipo
-		info.participants.forEach((participant) => {
-			if (participant.teamId === team.teamId) {
-				totalGold += participant.goldEarned;
-			}
+			// Itera sobre los participantes de este equipo
+			info.participants.forEach((participant) => {
+				if (participant.teamId === team.teamId) {
+					totalGold += participant.goldEarned;
+				}
+			});
+
+			// Crea un nuevo objeto de equipo con la suma total de oro agregada
+			return {
+				...team,
+				totalGold: totalGold,
+			};
+		})
+		.sort((a, b) => {
+			if (a.teamId === info.user.teamId) return -1;
+			if (b.teamId === info.user.teamId) return 1;
+			return 0;
 		});
-
-		// Crea un nuevo objeto de equipo con la suma total de oro agregada
-		return {
-			...team,
-			totalGold: totalGold,
-		};
-	});
 
 	return (
 		<div className='flex justify-around gap-2 px-2 py-3 lg:px-3 whitespace-nowrap min-w-[650px] '>
@@ -326,15 +340,15 @@ const TeamStats: React.FC<{ team: Team }> = ({ team }) => {
 	return (
 		<div className='flex gap-1 lg:gap-4'>
 			<div className='flex items-center gap-1 text-sm'>
-				<BaronIcon fill={team.teamId === 200 ? 'fill-blue-500' : 'fill-red-500'} />
+				<BaronIcon fill={team.win ? 'fill-blue-500' : 'fill-red-500'} />
 				{team.objectives.baron.kills}
 			</div>
 			<div className='flex items-center gap-1 text-sm'>
-				<DragonIcon fill={team.teamId === 200 ? 'fill-blue-500' : 'fill-red-500'} />
+				<DragonIcon fill={team.win ? 'fill-blue-500' : 'fill-red-500'} />
 				{team.objectives.dragon.kills}
 			</div>
 			<div className='flex items-center gap-1 text-sm'>
-				<TowerIcon fill={team.teamId === 200 ? 'fill-blue-500' : 'fill-red-500'} />
+				<TowerIcon fill={team.win ? 'fill-blue-500' : 'fill-red-500'} />
 				{team.objectives.tower.kills}
 			</div>
 		</div>
@@ -355,7 +369,9 @@ const TeamComparison: React.FC<{ teams: Team[] }> = ({ teams }) => {
 		<div className='w-full max-w-md text-[.65rem] text-zinc-100 '>
 			<div className='relative h-4 rounded-full'>
 				<div
-					className='absolute flex items-center justify-start h-full pl-2 bg-blue-500'
+					className={`absolute flex items-center justify-start h-full pl-2 ${
+						teams[0].win ? ' bg-blue-500' : ' bg-red-500'
+					}`}
 					style={{
 						width: `${team1KillsPercentage}%`,
 						left: '0',
@@ -366,7 +382,9 @@ const TeamComparison: React.FC<{ teams: Team[] }> = ({ teams }) => {
 					{teams[0].objectives.champion.kills}
 				</div>
 				<div
-					className='absolute flex items-center justify-end h-full pr-2 bg-red-500'
+					className={`absolute flex items-center justify-end h-full pr-2 ${
+						teams[1].win ? ' bg-blue-500' : ' bg-red-500'
+					}`}
 					style={{
 						width: `${team2KillsPercentage}%`,
 						right: '0',
@@ -381,7 +399,9 @@ const TeamComparison: React.FC<{ teams: Team[] }> = ({ teams }) => {
 
 			<div className='relative h-4 mt-2 rounded-full'>
 				<div
-					className='absolute flex items-center justify-start h-full pl-2 bg-blue-500 '
+					className={`absolute flex items-center justify-start h-full pl-2 ${
+						teams[0].win ? ' bg-blue-500' : 'bg-red-500'
+					} `}
 					style={{
 						width: `${team1Percentage}%`,
 						left: '0',
@@ -392,7 +412,9 @@ const TeamComparison: React.FC<{ teams: Team[] }> = ({ teams }) => {
 					{teams[0].totalGold.toLocaleString()}
 				</div>
 				<div
-					className='absolute flex items-center justify-end h-full pr-2 bg-red-500 '
+					className={`absolute flex items-center justify-end h-full pr-2 ${
+						teams[1].win ? ' bg-blue-500' : 'bg-red-500'
+					} `}
 					style={{
 						width: `${team2Percentage}%`,
 						right: '0',

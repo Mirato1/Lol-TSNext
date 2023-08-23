@@ -109,7 +109,9 @@ const Info = ({ info }: any) => (
 		<p className='text-[.55rem] lg:text-[.65rem] '>{moment(info.gameEndTimestamp).fromNow()}</p>
 
 		<hr
-			className={`mx-0 my-[2px] h-[0.5px] w-auto ${info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '} `}
+			className={`mx-0 my-[2px] h-[0.5px] w-auto max-w-[55px] ${
+				info?.user?.win ? 'border-blue-400/50 ' : 'border-red-400/50 '
+			} `}
 		/>
 		<div>
 			<p className={`text-[.55rem] font-semibold lg:text-xs ${info?.user?.win ? 'text-blue-500' : 'text-red-500'}`}>

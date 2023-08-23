@@ -60,15 +60,11 @@ export async function User() {
 							))}
 							<Rank />
 						</div>
-
 						<h2 className='text-base font-semibold md:text-2xl'>{name || 'Mirato'}</h2>
-
 						<CustomButton
 							title='Actualizar'
 							textStyles='text-zinc-50 text-[10px] md:text-[14px] leading-[17px] font-bold'
 							containerStyles='self-start'
-							// rightIcon='/right-arrow.svg'
-							// handleClick={() => setIsOpen(true)}
 						/>
 					</div>
 				</div>
