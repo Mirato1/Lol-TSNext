@@ -11,13 +11,11 @@ const fetchUser = async (): Promise<SummonerData> => {
 	if (IsError) {
 		throw new Error('Error obteniendo los datos del usuario');
 	}
-
 	return Data as SummonerData;
 };
 
 export async function User() {
 	const { name, profileIconId, summonerLevel } = await fetchUser();
-
 	return (
 		<>
 			<div className='absolute top-0 w-full h-96'>

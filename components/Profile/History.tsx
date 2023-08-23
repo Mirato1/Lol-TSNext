@@ -78,9 +78,7 @@ export async function History() {
 
 	return (
 		<div className='flex flex-col flex-1 w-full gap-2 md:w-8/12'>
-			{history?.map((el) => (
-				<MatchHistory key={el.metadata?.matchId} info={el.info} />
-			))}
+			{history?.map((el) => <MatchHistory key={el.metadata?.matchId} info={el.info} />)}
 		</div>
 	);
 }

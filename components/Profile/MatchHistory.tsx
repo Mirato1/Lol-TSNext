@@ -26,8 +26,8 @@ const MatchHistory: React.FC<MatchHistoryProps> = ({ info }) => {
 							<Info info={info} />
 							<ChampInfo info={info} />
 							<div className='sm:flex w-[32%] ml-1 lg:ml-5 hidden'>
-								<GameParticipants data={info.participants.slice(0, 5)} />
-								<GameParticipants data={info.participants.slice(5)} />
+								<GameParticipants data={info?.participants?.slice(0, 5)} />
+								<GameParticipants data={info?.participants?.slice(5)} />
 							</div>
 						</div>
 						<Disclosure.Button

@@ -3,6 +3,7 @@ module.exports = {
 	darkMode: 'class',
 	mode: 'jit',
 	content: ['./app/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+	plugins: [require('tailwindcss-animated')],
 	theme: {
 		screens: {
 			sm: '512px',
