@@ -1,4 +1,5 @@
 'use client';
+import { tierColor } from '@/constants';
 import { RankData } from '@/types';
 import { fetchData } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -55,18 +56,10 @@ const RankCard = ({ data }: { data: RankData }) => (
 			</div>
 
 			<div className='flex flex-col items-center w-full md:items-start '>
-				<p
-					className={`text-sm font-semibold lg:text-base  ${
-						data.tier === 'GRANDMASTER'
-							? 'text-red-500'
-							: data.tier === 'CHALLENGER'
-							? 'text-yellow-500'
-							: 'text-cyan-600'
-					}`}
-				>
+				<p className={`text-sm font-semibold lg:text-base ${tierColor[data.tier] || tierColor.default}`}>
 					{data.tier || 'CHALLENGER'} {data.tier !== 'GRANDMASTER' && data.tier !== 'CHALLENGER' && data.rank}
 				</p>
-				<p className='text-xs font-medium text-cyan-500 dark:text-yellow-400 md:text-xs'>{data.leaguePoints || 0}LP</p>
+				<p className='text-xs font-medium md:text-xs'>{data.leaguePoints || 0}LP</p>
 			</div>
 
 			<div className='flex flex-col items-center md:items-end md:min-w-[55px]'>

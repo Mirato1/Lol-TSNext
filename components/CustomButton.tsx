@@ -20,7 +20,7 @@ const CustomButton = ({
 			whileTap={{ scale: 0.97 }}
 			transition={{ type: 'spring', stiffness: 300, damping: 30 }}
 		>
-			<span className={` flex-1 ${textStyles} `}>{title}</span>
+			<span className={`${textStyles}`}>{title}</span>
 			{rightIcon && <>{rightIcon}</>}
 		</motion.button>
 	);

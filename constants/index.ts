@@ -12,6 +12,13 @@ export const headerLinks = [
 
 export const items = ['item0', 'item1', 'item2', 'item3', 'item4', 'item5', 'item6'];
 
+export const tierColor: { [key: string]: string } = {
+	GRANDMASTER: 'text-red-500',
+	CHALLENGER: 'text-yellow-500',
+	MASTER: 'text-violet-500',
+	default: 'text-cyan-600',
+};
+
 export const spells = [
 	{
 		id: 6,
