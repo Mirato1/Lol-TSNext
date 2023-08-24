@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 
 export interface ApiResponse<T = any> {
 	IsError: boolean;
@@ -50,7 +50,7 @@ export interface CustomButtonProps {
 	btnType?: 'button' | 'submit';
 	handleClick?: MouseEventHandler<HTMLButtonElement>;
 	textStyles?: string;
-	rightIcon?: string;
+	rightIcon?: ReactNode;
 	isDisabled?: boolean;
 }
 

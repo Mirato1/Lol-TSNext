@@ -1,12 +1,13 @@
 'use client';
 import { seasonElo } from '@/constants';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Rank from './Rank';
 import { CustomButton } from '..';
 import { SummonerData } from '@/types';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchData } from '@/utils';
+import { SlRefresh } from 'react-icons/sl';
 
 const fetchUser = async (): Promise<SummonerData> => {
 	const url = `https://${process.env.NEXT_PUBLIC_SV_1}/lol/summoner/v4/summoners/${process.env.NEXT_PUBLIC_SUMMONER}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
@@ -15,14 +16,36 @@ const fetchUser = async (): Promise<SummonerData> => {
 };
 
 const UserContent = () => {
-	const { data } = useQuery({
+	const queryClient = useQueryClient();
+	const { data, isFetching } = useQuery({
 		queryKey: ['user'],
 		queryFn: fetchUser,
 	});
 
+	const [waitTime, setWaitTime] = useState(60); // Tiempo de espera en segundos
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+	useEffect(() => {
+		if (isButtonDisabled && waitTime > 0) {
+			const interval = setInterval(() => {
+				setWaitTime((prevWaitTime) => prevWaitTime - 1);
+			}, 1000);
+
+			return () => clearInterval(interval);
+		} else if (waitTime === 0) {
+			setIsButtonDisabled(false);
+			setWaitTime(60); // Reiniciar el tiempo de espera
+		}
+	}, [isButtonDisabled, waitTime]);
+
 	if (!data) {
 		return <h1 className='font-bold'>Loading...</h1>;
 	}
+
+	const handleClick = async () => {
+		setIsButtonDisabled(true); // Deshabilitar el botón
+		return await queryClient.refetchQueries();
+	};
 
 	return (
 		<>
@@ -56,21 +79,29 @@ const UserContent = () => {
 					</div>
 					<div className='flex flex-col justify-between w-full gap-1'>
 						<div className='flex items-center gap-1 '>
-							{seasonElo.slice(-1).map((el) => (
-								<div className='text-center' key={el.season}>
-									<span className='flex gap-1 rounded-md bg-red-700 text-[0.55rem] leading-3 font-medium text-zinc-50 dark:bg-cyan-600 sm:text-xs md:font-semibold bg-opacity-80 px-2 py-1'>
-										<p>S{el.season}</p>
-										<p>{el.elo}</p>
-									</span>
-								</div>
-							))}
+							{seasonElo
+								.slice(-2)
+								.reverse()
+								.map((el) => (
+									<div className='text-center' key={el.season}>
+										<span className='flex gap-1 rounded-md bg-red-700 text-[0.55rem] leading-3 font-medium text-zinc-50 dark:bg-cyan-600 sm:text-xs md:font-semibold bg-opacity-80 px-2 py-1'>
+											<p>S{el.season}</p>
+											<p>{el.elo}</p>
+										</span>
+									</div>
+								))}
 							<Rank />
 						</div>
 						<h2 className='text-base font-semibold md:text-2xl'>{data.name}</h2>
 						<CustomButton
-							title='Actualizar'
+							title={isButtonDisabled ? `Available in ${waitTime} seconds` : 'Refresh'}
 							textStyles='text-zinc-50 text-[10px] md:text-[14px] leading-[17px] font-bold'
-							containerStyles='self-start'
+							containerStyles={`self-start`}
+							handleClick={handleClick}
+							rightIcon={
+								<SlRefresh className={`animate-spin animate-infinite ml-1  ${isFetching ? 'block' : 'hidden'} `} />
+							}
+							isDisabled={isButtonDisabled}
 						/>
 					</div>
 				</div>

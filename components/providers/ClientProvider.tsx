@@ -10,9 +10,9 @@ const queryClientOptions = {
 	},
 };
 
-const ClientProvider = ({ children }: { children: ReactNode }) => {
-	const queryClient = new QueryClient(queryClientOptions);
+const queryClient = new QueryClient(queryClientOptions);
 
+const ClientProvider = ({ children }: { children: ReactNode }) => {
 	return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
 

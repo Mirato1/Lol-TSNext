@@ -42,6 +42,10 @@ export const spells = [
 		name: 'SummonerDot',
 	},
 	{
+		id: 21,
+		name: 'SummonerBarrier',
+	},
+	{
 		id: 12,
 		name: 'SummonerTeleport',
 	},

@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 const Profile = () => {
 	return (
 		<main className='container'>
-			<article className='relative mt-4 profile__container px-2 sm:px-3'>
+			<article className='relative px-2 mt-4 profile__container sm:px-3'>
 				<Suspense fallback={<LoaderUser />}>
 					<User />
 				</Suspense>
@@ -28,7 +28,7 @@ const LoaderHistory = () => {
 			{numbersArray.map((el) => (
 				<div
 					key={el}
-					className='flex border-l-[6px] border-blue-500 bg-blue-300/50 px-2 py-1 dark:bg-blue-500 dark:bg-opacity-30 min-h-[3rem] h-20 w-full rounded-md animate-pulse'
+					className='flex border-l-[6px] border-blue-500 bg-blue-300/50 px-2 py-1 dark:bg-blue-500 dark:bg-opacity-30 min-h-[3rem] h-24 w-full rounded-md animate-pulse'
 					style={{
 						animationDelay: `${el * 0.05}s`,
 						animationDuration: '1s',
@@ -46,7 +46,7 @@ const LoaderRanked = () => {
 			{numbersArray.map((el) => (
 				<div
 					key={el}
-					className='flex h-32 flex-col items-center w-full px-4 py-2 rounded-lg md:items-stretch md:flex-row bg-zinc-300 dark:bg-slate-800  md:justify-between animate-pulse'
+					className='flex flex-col items-center w-full h-32 px-4 py-2 rounded-lg md:items-stretch md:flex-row bg-zinc-300 dark:bg-slate-800 md:justify-between animate-pulse'
 					style={{
 						animationDelay: `${el * 0.05}s`,
 						animationDuration: '1s',
@@ -63,16 +63,16 @@ const LoaderUser = () => {
 			<div className='flex self-center w-full h-full gap-5'>
 				<div className='flex min-w-[5rem] flex-col items-center justify-center self-center md:block md:min-w-[6rem] relative h-[5rem] w-20 md:h-24 md:w-24 object-contain bg-zinc-100/60 dark:bg-slate-700/70 animate-pulse rounded-xl'>
 					<div className='absolute w-full h-4 mx-auto my-0 -mt-3 text-center -bottom-1'>
-						<span className='inline-block rounded-xl px-2 py-0 bg-zinc-100 dark:bg-slate-700/80 animate-pulse w-9 h-4 ' />
+						<span className='inline-block h-4 px-2 py-0 rounded-xl bg-zinc-100 dark:bg-slate-700/80 animate-pulse w-9 ' />
 					</div>
 				</div>
 				<div className='flex flex-col justify-between w-full gap-1'>
 					<div className='flex items-center gap-1 '>
-						<span className='inline-block rounded-xl px-2 py-0 bg-zinc-200 dark:bg-slate-700/70 animate-pulse w-16 h-4 ' />
-						<span className='inline-block rounded-xl px-2 py-0 bg-zinc-200 dark:bg-slate-700/70 animate-pulse w-16 h-4 ' />
+						<span className='inline-block w-16 h-4 px-2 py-0 rounded-xl bg-zinc-200 dark:bg-slate-700/70 animate-pulse ' />
+						<span className='inline-block w-16 h-4 px-2 py-0 rounded-xl bg-zinc-200 dark:bg-slate-700/70 animate-pulse ' />
 					</div>
-					<div className='bg-zinc-200 dark:bg-slate-700/70 animate-pulse w-16 h-6 rounded-md ' />
-					<div className='bg-zinc-200 dark:bg-slate-700/70 animate-pulse w-20 h-6 rounded-md ' />
+					<div className='w-16 h-6 rounded-md bg-zinc-200 dark:bg-slate-700/70 animate-pulse ' />
+					<div className='w-20 h-6 rounded-md bg-zinc-200 dark:bg-slate-700/70 animate-pulse ' />
 				</div>
 			</div>
 		</div>
